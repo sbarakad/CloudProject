@@ -22,7 +22,7 @@ module.exports.routes = {
   '/mbr/addUser' : {controller: 'MbrServiceController', action: 'mbrAddUser', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/mbrLogin': {controller: 'MbrServiceController', action: 'mbrLogin', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/status'  : {controller: 'MbrServiceController', action: 'mbrStatus', locals: {layout: 'layouts/mbr/layout.ejs'}},
-  '/mbr/confirmEmploymentStatus'  : {controller: 'MbrServiceController', action: 'confirmEmploymentStatus', locals: {layout: 'layouts/mbr/layout.ejs'}},
+  '/mbr/verify'  : {controller: 'MbrServiceController', action: 'confirmEmploymentStatus', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/confirmInsuranceAvailability'  : {controller: 'MbrServiceController', action: 'mbrConfirmInsuranceAvailability', locals: {layout: 'layouts/mbr/layout.ejs'}},
 
   // MBR Application routes
