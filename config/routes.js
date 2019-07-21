@@ -30,19 +30,13 @@ module.exports.routes = {
   '/mbr/signup'    : {view: 'pages/mbr/signup', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/signin'    : {view: 'pages/mbr/signin', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/dashboard' : {view: 'pages/mbr/dashboard', locals: {layout: 'layouts/mbr/layout.ejs'}},
-
-  '/employee': { view: 'pages/homepage' },
-  '/employee/signup' : { view: 'pages/signup'},
-  '/employee/signin' : {view: 'pages/signin'},
-  '/employee/dashboard' : {view: 'pages/dashboard'},
   
-
   //Employee Application Route
-  '/employee/Portal' : { view: 'pages/EmployerPortal'},
-  '/employee/SignIn' : {view:'pages/EmployeeSignIn'},
-  '/employee/SignUp' : {view:'pages/EmployeeSignUp'},
-  '/employee/MortgageSend' : {view:'pages/MortgageInfoSupply'},
-  '/employee/MissMatch' : {view:'pages/mismatch'},
+  '/employee' : { view: 'pages/employee/Portal', locals: {layout: 'layouts/employee/layout.ejs'}},
+  '/employee/SignIn' : {view:'pages/employee/SignIn', locals: {layout: 'layouts/employee/layout.ejs'}},
+  '/employee/SignUp' : {view:'pages/employee/SignUp', locals: {layout: 'layouts/employee/layout.ejs'}},
+  '/employee/MortgageSend' : {view:'pages/employee/MortgageInfoSupply', locals: {layout: 'layouts/employee/layout.ejs'}},
+  '/employee/MissMatch' : {view:'pages/employee/mismatch', locals: {layout: 'layouts/employee/layout.ejs'}},
 
   //Employee web service Route
   'Post /employee/create' : { 

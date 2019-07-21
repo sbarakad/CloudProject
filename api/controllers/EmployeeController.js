@@ -148,10 +148,9 @@ module.exports = {
                         res.send(500,{error:'Logging Error'});
                     }
                 });
-                return res.redirect("/employee/authenticate?authenticated=true&empID="+employeeId);
+                return res.redirect("/employee/MortgageSend?&empID="+data.empID);
             }
             else{
-                console.log("Hello");
                 var log = "Not authentic user."
                 var timestamp = new Date().getTime();
                 var server = "Company"
