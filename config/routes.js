@@ -18,12 +18,21 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
+  // Service routes
+  '/addUser': {controller: 'MbrServiceController', action: 'addUser'},
+  '/authUser': {controller: 'MbrServiceController', action: 'login'},
+  '/status': {controller: 'MbrServiceController', action: 'status'},
+  '/verify': {controller: 'MbrServiceController', action: 'verify'},
+  // '/addUser' : 'UserManagmentController.addUser',
+  // '/authUser' : 'UserManagmentController.login',
+  // '/status' : 'UserManagmentController.status', 
+  // '/verify' : 'UserManagmentController.verify',
 
+  // Application routes
   '/': { view: 'pages/homepage' },
-  '/addUser' : 'UserManagmentController.addUser',
-  '/authUser' : 'UserManagmentController.login',
-  '/status' : 'UserManagmentController.status', 
-  '/verify' : 'UserManagmentController.verify',
+  '/signup' : { view: 'pages/signup'},
+  '/signin' : {view: 'pages/signin'},
+  '/dashboard' : {view: 'pages/dashboard'}
 
   /***************************************************************************
   *                                                                          *

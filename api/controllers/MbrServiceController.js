@@ -1,5 +1,5 @@
 /**
- * UserManagmentController
+ * MbrServiceController
  *
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
@@ -17,7 +17,7 @@ module.exports = {
         var tenure = req.param("tenure");
         var salary = req.param("salary");
         
-        UserManagment.create({Name:name,Email:email,
+        MbrUser.create({Name:name,Email:email,
             Password:password,
             Address:address,
             Phone_Number:phoneNumber,
@@ -49,7 +49,7 @@ module.exports = {
         var email = req.param("email");
         var password = req.param("password");
         
-        UserManagment.findOne({Email:email})
+        MbrUser.findOne({Email:email})
             .exec(function(err,user)
             {
                 if(err)
@@ -80,7 +80,7 @@ module.exports = {
     status:function(req,res)
     {
         var email = req.param("email");
-        UserManagment.findOne({Email:email})
+        MbrUser.findOne({Email:email})
             .exec(function(err,user)
             {
                 if(err)
@@ -102,7 +102,7 @@ module.exports = {
         var salary = req.param("salary");
         var id = req.param("id");
 
-        UserManagment.findOne({id:id})
+        MbrUser.findOne({id:id})
             .exec(function(err,user)
             {
                 if(err)
@@ -120,7 +120,7 @@ module.exports = {
                         tenure==user.Tenure &&
                         salary==user.Salary)
                     {
-                        UserManagment.update({id:id})
+                        MbrUser.update({id:id})
                         .set({
                             Status:"Application Accepted"
                         })
@@ -134,7 +134,7 @@ module.exports = {
                     }
                     else
                     {
-                        UserManagment.update({id:id})
+                        MbrUser.update({id:id})
                         .set({
                             Status:"Employee detail did not match, send again"
                         })
