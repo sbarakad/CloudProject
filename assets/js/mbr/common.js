@@ -8,6 +8,7 @@ var validSignupAddress = false;
 var validSignupPhoneNumber = false;
 var validSignupSalary = false;
 var validSignupTenure = false;
+var validSignupMortgageValue = false;
 
 $(document).ready(function () {
     if (localStorage.getItem("email")) {
@@ -26,7 +27,7 @@ $(document).ready(function () {
                 }
             })
                 .done(function (data) {
-                    $('.dashboard-uniqueID').text(data.id);
+                    $('.dashboard-mortgage-id').text(data.id);
                     $('.dashboard-name').text(data.Name);
                     $('.dashboard-email').text(data.Email);
                     $('.dashboard-address').text(data.Address);
@@ -34,6 +35,20 @@ $(document).ready(function () {
                     $('.dashboard-salary').text(data.Salary);
                     $('.dashboard-tenure').text(data.Salary);
                     $('.dashboard-status').text(data.Status);
+                    $('.dashboard-property-id').text(data.MlsID);
+                    if(data.InsuredValue && data.Deductable) {
+                        $('.dashboard-is-insured').text("Insurance company has approved your application.");
+                        $('#user-info').append("<div class='col-md-6'>Insured Value: <span class='dashboard-insured-value'></span> </div>");
+                        $('.dashboard-insured-value').text(data.InsuredValue);
+                        $('#user-info').append("<div class='col-md-6'>Deductable: <span class='dashboard-deductable'></span> </div>");
+                        $('.dashboard-deductable').text(data.Deductable);
+                    } else {
+                        if(data.IsInsurable) {
+                            $('.dashboard-is-insured').text("Waiting for insurance company decision.");
+                        } else {
+                            $('.dashboard-is-insured').text("Insurance company has declined your application.");
+                        }
+                    }
                 })
         }
 
@@ -92,9 +107,9 @@ $('.signin-password').keyup(function () {
 $('.signin-button').click(function () {
 
     if (validateEmail == true && validPassword == true) {
-        var encryptedPassword = CryptoJS.AES.encrypt($('.signin-password').val(), "cloud computing");
+        // var encryptedPassword = CryptoJS.AES.encrypt($('.signin-password').val(), "cloud computing");
         $.ajax({
-            url: 'http://localhost:1337/mbr/authUser?email=' + $('.signin-email').val() + '&password=' + encryptedPassword,
+            url: 'http://localhost:1337/mbr/mbrLogin?email=' + $('.signin-email').val() + '&password=' + $('.signin-password').val(),
             dataType: 'json',
             beforeSend: function (xhr) {
 
@@ -243,6 +258,36 @@ $('.signup-tenure').focusout(function () {
 
 });
 
+$('.signup-mortgage-value').focus(function () {
+    $('.mortgage-value-message').text('');
+});
+
+$('.signup-mortgage-value').focusout(function () {
+    var mortgageValue = $('.signup-mortgage-value').val();
+    if (checkForBlank(mortgageValue)) {
+        validSignupMortgageValue = true;
+        $('.mortgage-value-message').text('Valid Mortgage Ammount');
+    } else {
+        validSignupMortgageValue = false;
+        $('.mortgage-value-message').text('Mortgage Ammount Cannot Be Blank');
+    }
+});
+
+$('.signup-property-id').focus(function () {
+    $('.property-id-message').text('');
+});
+
+$('.signup-property-id').focusout(function () {
+    var propertyId = $('.signup-property-id').val();
+    if (checkForBlank(propertyId)) {
+        validSignupPropertyId = true;
+        $('.property-id-message').text('Valid Property ID');
+    } else {
+        validSignupPropertyId = false;
+        $('.property-id-message').text('Property ID Cannot Be Blank');
+    }
+});
+
 $('.signup-email').focusout(function () {
     var signInEmail = $('.signup-email').val();
     if (checkForBlank(signInEmail)) {
@@ -263,10 +308,13 @@ $('.signup-email').focusout(function () {
 
 $('.signup-button').click(function () {
 
-    if (validSignupEmail == true && validSignupPassword == true && validSignupAddress == true && validSignupName && validSignupPhoneNumber && validSignupSalary && validSignupTenure) {
-        var encryptedPassword = CryptoJS.AES.encrypt($('.signup-password').val(), "cloud computing");
+    if (validSignupEmail == true && validSignupPassword == true && validSignupAddress == true && validSignupName && validSignupPhoneNumber && validSignupSalary && validSignupTenure && validSignupMortgageValue) {
+        // var encryptedPassword = CryptoJS.AES.encrypt($('.signup-password').val(), "cloud computing");
         $.ajax({
-            url: 'http://localhost:1337/mbr/addUser?name=' + $('.signup-name').val() + '&email=' + $('.signup-email').val() + '&password=' + encryptedPassword + '&address=' + $('.signup-address').val() + '&phoneNumber=' + $('.signup-phonenumber').val() + '&salary=' + $('.signup-salary').val() + '&tenure=' + $('.signup-tenure').val(),
+            url: 'http://localhost:1337/mbr/addUser?name=' + $('.signup-name').val() + '&email=' + $('.signup-email').val() + 
+                '&password=' + $('.signup-password').val() + '&address=' + $('.signup-address').val() + '&phoneNumber=' + 
+                $('.signup-phonenumber').val() + '&salary=' + $('.signup-salary').val() + '&tenure=' + $('.signup-tenure').val()+ 
+                '&mortgageValue=' + $('.signup-mortgage-value').val() + '&mlsID=' + $('.signup-property-id').val(),
             dataType: 'json',
             beforeSend: function (xhr) {
                 $('.signup-button').text("Loading...");
