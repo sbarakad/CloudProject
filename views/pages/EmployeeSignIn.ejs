@@ -23,16 +23,16 @@
     <div class="col-lg-4">
   
     </div>
-      <form action="https://company-portal-service.herokuapp.com/employer/authenticateUser" method="POST">
+      <form action="/employee/auth" method="POST">
   
     <div class="col-lg-4" id="sign-in-form">
      <div>
        <center><h1>Login</h1></center>
      </div>
     <div class="form-group">
-      <label for="empID">Employee ID:</label>
-      <input type="text" class="form-control" id="empID" required=true value="<%=empID%>"
-       name="empID" readonly>
+      <label for="email">Email:</label>
+      <input type="text" class="form-control" id="email" required=true
+       name="empID" placeholder="Enter Email">
   
     </div>
     <div class="form-group">

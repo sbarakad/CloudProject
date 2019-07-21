@@ -19,17 +19,19 @@
         }
       </style>
     <script type="tex/javascript">
-    function pwdFunction() {
-      var password = document.getElementById("pwd");
-      if (password.type === "password") {
-        password.type = "text";
-      } else {
-        password.type = "password";
+
+      function pwdFunction() {
+        var password = document.getElementById("pwd");
+        if (password.type === "password") {
+          password.type = "text";
+        } else {
+          password.type = "password";
+        }
       }
-    }
+
     </script>
     <div class="container-fluid" id="mainDiv">
-        <form action="https://company-portal-service.herokuapp.com/Create" method="POST">
+        <form action="/employee/create" method="POST">
           <div class="col-lg-4">
     
           </div>

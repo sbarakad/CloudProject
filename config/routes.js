@@ -40,11 +40,17 @@ module.exports.routes = {
   '/employee/SignIn' : {view:'pages/EmployeeSignIn'},
   '/employee/SignUp' : {view:'pages/EmployeeSignUp'},
   '/employee/MortgageSend' : {view:'pages/MortgageInfoSupply'},
+  '/employee/MissMatch' : {view:'pages/mismatch'},
 
   //Employee web service Route
-  '/employee/create' : { 
+  'Post /employee/create' : { 
     controller: 'EmployeeController',
     action : 'create'
+  },
+
+  'Post /employee/auth' : {
+    controller : 'EmployeeController',
+    action : 'authenticateUser'
   }
 
   /***************************************************************************
