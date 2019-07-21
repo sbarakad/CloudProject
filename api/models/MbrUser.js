@@ -48,6 +48,32 @@ module.exports = {
       type : "string",
       required:true
     },
+
+    MortgageValue: {
+      type : "number",
+      required:true
+    },
+
+    MlsID: { // property id
+      type : "string",
+      required:true
+    },
+
+    IsInsurable: {
+      type : "boolean",
+      required: false,
+      defaultsTo: true
+    },
+
+    InsuredValue: {
+      type : "number",
+      required: false
+    },
+
+    Deductable: {
+      type : "number",
+      required: false
+    },
   },
 
 };

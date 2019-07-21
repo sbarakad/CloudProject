@@ -15,8 +15,8 @@ module.exports = {
         var phoneNumber = req.param("phoneNumber");
         var tenure = req.param("tenure");
         var salary = req.param("salary");
-
-        // res.locals.layout = 'layouts/mbr/layout.ejs';
+        var mortgageValue = req.param("mortgageValue");
+        var mlsID = req.param("mlsID"); // property ID
 
         MbrUser.create({
             Name: name, Email: email,
@@ -25,7 +25,9 @@ module.exports = {
             Phone_Number: phoneNumber,
             Tenure: tenure,
             Salary: salary,
-            Status: "Waiting for employee response"
+            Status: "Waiting for employee response",
+            MortgageValue: mortgageValue,
+            MlsID: mlsID
         })
             .exec(function (err) {
                 if (err) {
@@ -44,8 +46,6 @@ module.exports = {
     mbrLogin: function (req, res) {
         var email = req.param("email");
         var password = req.param("password");
-
-        // res.locals.layout = 'layouts/mbr/layout.ejs';
 
         MbrUser.findOne({ Email: email })
             .exec(function (err, user) {
@@ -69,8 +69,6 @@ module.exports = {
     mbrStatus: function (req, res) {
         var email = req.param("email");
 
-        // res.locals.layout = 'layouts/mbr/layout.ejs';
-
         MbrUser.findOne({ Email: email })
             .exec(function (err, user) {
                 if (err) {
@@ -81,14 +79,12 @@ module.exports = {
             })
     },
 
-    mbrVerify: function (req, res) {
+    confirmEmploymentStatus: function (req, res) {
         var name = req.param("name");
         var email = req.param("email");
         var tenure = req.param("tenure");
         var salary = req.param("salary");
         var id = req.param("id");
-
-        // res.locals.layout = 'layouts/mbr/layout.ejs';
 
         MbrUser.findOne({ id: id })
             .exec(function (err, user) {
@@ -109,6 +105,46 @@ module.exports = {
                     } else {
                         MbrUser.update({ id: id }).set({
                             Status: "Employee detail did not match, send again"
+                        }).exec(function (err) {
+                            if (err) {
+                                res.send(err);
+                            }
+                        })
+                    }
+                    res.send({ status: "success" })
+                }
+            })
+    },
+
+    mbrConfirmInsuranceAvailability: function(req, res) {
+        var mortId = req.param("MortId");
+        var mlsID = req.param("MlsID");
+        var isInsurable = req.param("isInsurable");
+        var insuredValue = req.param("insuredValue");
+        var deductable = req.param("deductable");
+        var applicantName = req.param("applicantName");
+
+        MbrUser.findOne({ id: mortId })
+            .exec(function (err, user) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    if (!user || user.MlsID != mlsID || user.Name != applicantName) {
+                        return res.send({ status: "fail", error: "Invalid mortgage ID, or property ID MlsID, or user name." })
+                    }
+                    if (isInsurable) {
+                        MbrUser.update({ id: mortId }).set({
+                            IsInsurable: true,
+                            InsuredValue: insuredValue,
+                            Deductable: deductable
+                        }).exec(function (err) {
+                            if (err) {
+                                res.send(err);
+                            }
+                        })
+                    } else {
+                        MbrUser.update({ id: mortId }).set({
+                            IsInsurable: false
                         }).exec(function (err) {
                             if (err) {
                                 res.send(err);
