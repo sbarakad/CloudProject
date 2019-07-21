@@ -1,0 +1,50 @@
+<style type="text/css">
+  body,html{
+    height: 100%;
+  }
+    #mainDiv{
+       background-image: linear-gradient(#C04848, #480048);
+       height: 100%;
+       font-family:Arial;
+    }
+    #sign-in-form{
+      border:2px solid;
+      padding: 30px;
+      margin-top: 50px;
+      border-radius: 13px;
+        background-image: linear-gradient(#ECE9E6, #FFFFFF);
+    }
+    #btn{
+      font-size: 18px;
+    }
+  </style>
+  
+  <div class="container-fluid" id="mainDiv">
+    <div class="col-lg-4">
+  
+    </div>
+      <form action="https://company-portal-service.herokuapp.com/employer/authenticateUser" method="POST">
+  
+    <div class="col-lg-4" id="sign-in-form">
+     <div>
+       <center><h1>Login</h1></center>
+     </div>
+    <div class="form-group">
+      <label for="empID">Employee ID:</label>
+      <input type="text" class="form-control" id="empID" required=true value="<%=empID%>"
+       name="empID" readonly>
+  
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" required=true name="password" placeholder="Enter Password">
+    </div>
+    <center><button type="submit" class="btn btn-primary" id="btn">Log-in
+    </div>
+  
+  </button></center>
+  </form>
+  <div class="col-lg-4">
+  </div>
+  </div>
+  

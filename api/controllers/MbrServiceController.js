@@ -151,7 +151,5 @@ module.exports = {
 
             })
     }
-
-
 };
 

@@ -1,0 +1,24 @@
+<h1 class="display-4">Logger</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>log</th>
+      <th>timestamp</th>
+      <th>Server</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+
+    <% logList.forEach(function(log){ %>
+    <tr>
+      <td><%= log.id %></td>
+      <td><%= log.log %></td>
+      <td><%= log.time %></td>
+      <td><%= log.server %></td>
+    <% }) %>
+    </tr>
+  </tbody>
+</table>

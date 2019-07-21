@@ -1,0 +1,77 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+      $("form").submit(function() {
+      $("#agree").change(function() {
+        if(this.checked) {
+            alert("User agreed");
+        }
+        else if(!this.checked){
+          alert("Please agree by checking the checkbox");
+          return false;
+        }
+    });
+     
+    });
+    });
+    </script>
+    <style type="text/css">
+        body,html{
+          height: 100%;
+        }
+          #mainDiv{
+             background-image: linear-gradient(#C04848, #480048);
+             height: 100%;
+             font-family:Arial;
+          }
+          #subDiv{
+            border:2px solid;
+            padding: 30px;
+            margin-top: 50px;
+            border-radius: 13px;
+              background-image: linear-gradient(#ECE9E6, #FFFFFF);
+          }
+          #btn{
+            font-size: 18px;
+          }
+        </style>
+    
+        <div class="container-fluid" id="mainDiv">
+         <div class="col-lg-4">
+    
+        </div>
+        <form action="https://company-portal-service.herokuapp.com/employer/supplyMBRinfo" method="POST">
+          <div class="col-lg-4" id="subDiv">
+           <div>
+              <%empID%>
+             <center><h1>Information Supply Form</h1></center>
+           </div>
+           <div class="form-group">
+              <label for="empID">Employee ID:</label>
+              <input type="text" class="form-control" id="empID" required=true value="<%=empID%>"
+               name="empID" readonly>
+    
+            </div>
+          <div class="form-group">
+            <label for="appNumber">Mortgage Application Number:</label>
+            <input type="number" class="form-control" required=true id="appNumber" name="mbrID"
+             placeholder="Enter your Mortgage Application Number">
+          </div>
+          <div class="form-group">
+            <label for="address">Broker Web-service Address:</label>
+            <input type="text" class="form-control" id="address" name="address"
+             required=true placeholder="Enter Broker's web-service address">
+          </div>
+          <div class="form-group">
+    
+            <input type="checkbox" id="agree">&nbsp;<b>Do you agree to supply Information?</b>
+    
+          </div>
+    
+         <center><button type="submit" class="btn btn-primary" id="btn">Submit</button></center>
+        </div>
+        </form>
+        <div class="col-lg-4">
+    
+        </div>
+        </div>
+        

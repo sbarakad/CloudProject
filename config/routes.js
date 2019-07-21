@@ -32,7 +32,20 @@ module.exports.routes = {
   '/': { view: 'pages/homepage' },
   '/signup' : { view: 'pages/signup'},
   '/signin' : {view: 'pages/signin'},
-  '/dashboard' : {view: 'pages/dashboard'}
+  '/dashboard' : {view: 'pages/dashboard'},
+  
+
+  //Employee Application Route
+  '/employee/Portal' : { view: 'pages/EmployerPortal'},
+  '/employee/SignIn' : {view:'pages/EmployeeSignIn'},
+  '/employee/SignUp' : {view:'pages/EmployeeSignUp'},
+  '/employee/MortgageSend' : {view:'pages/MortgageInfoSupply'},
+
+  //Employee web service Route
+  '/employee/create' : { 
+    controller: 'EmployeeController',
+    action : 'create'
+  }
 
   /***************************************************************************
   *                                                                          *
