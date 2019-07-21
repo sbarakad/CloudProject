@@ -18,19 +18,21 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
-  // MBR Service routes
+  // MBR Service routes:
   '/mbr/addUser' : {controller: 'MbrServiceController', action: 'mbrAddUser', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/mbrLogin': {controller: 'MbrServiceController', action: 'mbrLogin', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/status'  : {controller: 'MbrServiceController', action: 'mbrStatus', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/verify'  : {controller: 'MbrServiceController', action: 'confirmEmploymentStatus', locals: {layout: 'layouts/mbr/layout.ejs'}},
-  '/mbr/confirmInsuranceAvailability'  : {controller: 'MbrServiceController', action: 'mbrConfirmInsuranceAvailability', locals: {layout: 'layouts/mbr/layout.ejs'}},
+  '/mbr/confirm-insurance-availability'  : {controller: 'MbrServiceController', action: 'mbrConfirmInsuranceAvailability', locals: {layout: 'layouts/mbr/layout.ejs'}},
 
-  // MBR Application routes
-
+  // MBR Application routes:
   '/mbr'           : {view: 'pages/mbr/homepage', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/signup'    : {view: 'pages/mbr/signup', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/signin'    : {view: 'pages/mbr/signin', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/dashboard' : {view: 'pages/mbr/dashboard', locals: {layout: 'layouts/mbr/layout.ejs'}},
+
+  // INSinc Service routes:
+  '/insinc/check-insurance-availability' : {controller: 'INSincController', action: 'checkInsuranceAvailability'},
 
   '/employee': { view: 'pages/homepage' },
   '/employee/signup' : { view: 'pages/signup'},
