@@ -9,23 +9,23 @@ var validSignupPhoneNumber = false;
 var validSignupSalary = false;
 var validSignupTenure = false;
 
-$(document).ready(function(){
-    if(localStorage.getItem("email")){
+$(document).ready(function () {
+    if (localStorage.getItem("email")) {
         $('.navbar-nav').html("");
         $('.navbar-nav').append("<li class=\"nav-item logout\"><span class=\"nav-link\">Logout</span></li> <li class=\"nav-item dashboard\"><span class=\"nav-link\">Dashboard</span></li>");
     }
 
-    if($('.identify-page').val() == "dashboard"){
+    if ($('.identify-page').val() == "dashboard") {
         var emailID = localStorage.getItem("email");
-        if(emailID){
+        if (emailID) {
             $.ajax({
-                url: 'http://localhost:1337/status?email='+emailID,
-                dataType:'json',
-                beforeSend: function( xhr ) {
-                   
+                url: 'http://localhost:1337/status?email=' + emailID,
+                dataType: 'json',
+                beforeSend: function (xhr) {
+
                 }
-              })
-                .done(function( data ) {
+            })
+                .done(function (data) {
                     $('.dashboard-uniqueID').text(data.id);
                     $('.dashboard-name').text(data.Name);
                     $('.dashboard-email').text(data.Email);
@@ -34,101 +34,101 @@ $(document).ready(function(){
                     $('.dashboard-salary').text(data.Salary);
                     $('.dashboard-tenure').text(data.Salary);
                     $('.dashboard-status').text(data.Status);
-            })
+                })
         }
-        
-    }else{
+
+    } else {
         //don't do anything
     }
 });
 
-$(document).on("click","li.logout",function(){
+$(document).on("click", "li.logout", function () {
     localStorage.clear();
     window.location.replace("/");
 })
 
-$(document).on("click","li.dashboard",function(){
+$(document).on("click", "li.dashboard", function () {
     window.location.replace("/dashboard");
 })
 
-$('.signin-email').focus(function(){
+$('.signin-email').focus(function () {
     $('.email-message').text('');
 });
 
-$('.signin-email').focusout(function(){
+$('.signin-email').focusout(function () {
     var signInEmail = $('.signin-email').val();
-    if(checkForBlank(signInEmail)){
-        if(isEmail(signInEmail)){
+    if (checkForBlank(signInEmail)) {
+        if (isEmail(signInEmail)) {
             $('.email-message').text('Valid Email');
             validateEmail = true;
-        }else{
+        } else {
             //email is invalid format
             $('.email-message').text('Invalid Email.');
             validateEmail = false;
         }
-    }else{
+    } else {
         //email is blank
         $('.email-message').text('Email Cannot Be Blank');
         validateEmail = false;
     }
 });
 
-$('.signin-password').focus(function(){
+$('.signin-password').focus(function () {
     $('.password-message').text('Make sure that the password has a length of 6');
 });
 
-$('.signin-password').keyup(function(){
+$('.signin-password').keyup(function () {
     var signInPasswordLength = $('.signin-password').val();
-    if(checkLengthForPassword(signInPasswordLength)){
+    if (checkLengthForPassword(signInPasswordLength)) {
         $('.password-message').text('Valid Password');
         validPassword = true;
-    }else{
+    } else {
         $('.password-message').text('Invalid Password');
         validPassword = false;
     }
-    
+
 });
 
-$('.signin-button').click(function(){
+$('.signin-button').click(function () {
 
-    if(validateEmail == true && validPassword == true){
+    if (validateEmail == true && validPassword == true) {
         var encryptedPassword = CryptoJS.AES.encrypt($('.signin-password').val(), "cloud computing");
         debugger
         $.ajax({
-            url: 'http://localhost:1337/authUser?email='+$('.signin-email').val()+'&password='+encryptedPassword,
-            dataType:'json',
-            beforeSend: function( xhr ) {
-               
+            url: 'http://localhost:1337/authUser?email=' + $('.signin-email').val() + '&password=' + encryptedPassword,
+            dataType: 'json',
+            beforeSend: function (xhr) {
+
             }
-          })
-            .done(function( data ) {
+        })
+            .done(function (data) {
                 var jsonResponse = JSON.stringify(data);
                 var response = JSON.parse(jsonResponse);
-                if(response.status == "authentic"){
+                if (response.status == "authentic") {
                     localStorage.setItem("email", $('.signin-email').val());
                     window.location.replace("/dashboard");
-                }else{
+                } else {
                     alert("Username and password combination is not correct");
                 }
-        })
+            })
 
-    }else{
+    } else {
         $('.password-message').text('Email or password is not valid');
     }
 })
 
-function checkLengthForPassword(value){
-    if(value.length>6){
+function checkLengthForPassword(value) {
+    if (value.length > 6) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
-function checkForBlank(value){
-    if(value.length>1){
+function checkForBlank(value) {
+    if (value.length > 1) {
         return true;
-    }else{
+    } else {
         return true;
     }
 }
@@ -139,153 +139,153 @@ function isEmail(email) {
 
 // ----------------------------------signup page validation ------------------------------------
 
-$('.signup-email').focus(function(){
+$('.signup-email').focus(function () {
     $('.email-message').text('');
 });
 
-$('.signup-password').focus(function(){
+$('.signup-password').focus(function () {
     $('.password-message').text('');
 });
 
-$('.signup-password').focusout(function(){
+$('.signup-password').focusout(function () {
     var password = $('.signup-password').val();
 
-    if(checkForBlank(password)){
-        if(checkLengthForPassword(password)){
+    if (checkForBlank(password)) {
+        if (checkLengthForPassword(password)) {
             validSignupPassword = true;
             $('.password-message').text('Valid Password');
-        }else{
+        } else {
             validSignupPassword = false;
             $('.password-message').text('Invalid Password. Password must be greater than 6 in length');
         }
-    }else{
+    } else {
         validSignupPassword = false;
         $('.password-message').text('Password cannot be blank');
     }
 });
 
-$('.signup-name').focus(function(){
+$('.signup-name').focus(function () {
     $('.name-message').text('');
 });
 
-$('.signup-name').focusout(function(){
+$('.signup-name').focusout(function () {
     var name = $('.signup-name').val();
-    
-    if(checkForBlank(name)){
+
+    if (checkForBlank(name)) {
         validSignupName = true;
         $('.name-message').text('Valid Name');
-    }else{
+    } else {
         validSignupName = false;
         $('.name-message').text('Name cannot be blank');
     }
 });
 
 
-$('.signup-address').focus(function(){
+$('.signup-address').focus(function () {
     $('.address-message').text('');
 });
 
-$('.signup-address').focusout(function(){
+$('.signup-address').focusout(function () {
     var address = $('.signup-address').val();
-    
-    if(checkForBlank(address)){
+
+    if (checkForBlank(address)) {
         validSignupAddress = true;
         $('.address-message').text('Valid Address');
-    }else{
+    } else {
         validSignupAddress = false;
         $('.address-message').text('Address cannot be blank');
     }
 });
 
-$('.signup-phonenumber').focus(function(){
+$('.signup-phonenumber').focus(function () {
     $('.phoneNumber-message').text('');
 });
 
-$('.signup-phonenumber').focusout(function(){
+$('.signup-phonenumber').focusout(function () {
     var phoneNumber = $('.signup-phonenumber').val();
-    
-    if(checkForBlank(phoneNumber)){
-        validSignupPhoneNumber = true; 
+
+    if (checkForBlank(phoneNumber)) {
+        validSignupPhoneNumber = true;
         $('.phonenumber-message').text('Valid Phone Number');
-    }else{
+    } else {
         validSignupPhoneNumber = false;
         $('.phonenumber-message').text('Phone Number cannot be blank');
     }
 });
 
-$('.signup-salary').focus(function(){
+$('.signup-salary').focus(function () {
     $('.salary-message').text('');
 });
 
-$('.signup-salary').focusout(function(){
+$('.signup-salary').focusout(function () {
     var salary = $('.signup-salary').val();
-    if(checkForBlank(salary)){
+    if (checkForBlank(salary)) {
         validSignupSalary = true;
         $('.salary-message').text('Valid Salary');
-    }else{
+    } else {
         validSignupSalary = false;
         $('.salary-message').text('Salary canot be blank');
     }
 });
 
-$('.signup-tenure').focus(function(){
+$('.signup-tenure').focus(function () {
     $('.tenure-message').text('');
 });
 
-$('.signup-tenure').focusout(function(){
+$('.signup-tenure').focusout(function () {
     var tenure = $('.signup-tenure').val();
-    if(checkForBlank(tenure)){
+    if (checkForBlank(tenure)) {
         validSignupTenure = true;
         $('.tenure-message').text('Valid Tenure');
-    }else{
+    } else {
         validSignupTenure = false;
         $('.tenure-message').text('Tenure Cannot Be Blank');
     }
-    
+
 });
 
-$('.signup-email').focusout(function(){
+$('.signup-email').focusout(function () {
     var signInEmail = $('.signup-email').val();
-    if(checkForBlank(signInEmail)){
-        if(isEmail(signInEmail)){
+    if (checkForBlank(signInEmail)) {
+        if (isEmail(signInEmail)) {
             $('.email-message').text('Valid Email');
             validSignupEmail = true;
-        }else{
+        } else {
             //email is invalid format
             $('.email-message').text('Invalid Email.');
             validSignupEmail = false;
         }
-    }else{
+    } else {
         //email is blank
         $('.email-message').text('Email Cannot Be Blank');
         validSignupEmail = false;
     }
 });
 
-$('.signup-button').click(function(){
+$('.signup-button').click(function () {
 
-    if(validSignupEmail==true && validSignupPassword == true && validSignupAddress == true && validSignupName && validSignupPhoneNumber && validSignupSalary && validSignupTenure){
+    if (validSignupEmail == true && validSignupPassword == true && validSignupAddress == true && validSignupName && validSignupPhoneNumber && validSignupSalary && validSignupTenure) {
         var encryptedPassword = CryptoJS.AES.encrypt($('.signup-password').val(), "cloud computing");
         debugger
         $.ajax({
-            url: 'http://localhost:1337/addUser?name='+$('.signup-name').val()+'&email='+$('.signup-email').val()+'&password='+encryptedPassword+'&address='+$('.signup-address').val()+'&phoneNumber='+$('.signup-phonenumber').val()+'&salary='+$('.signup-salary').val()+'&tenure='+$('.signup-tenure').val(),
-            dataType:'json',
-            beforeSend: function( xhr ) {
+            url: 'http://localhost:1337/addUser?name=' + $('.signup-name').val() + '&email=' + $('.signup-email').val() + '&password=' + encryptedPassword + '&address=' + $('.signup-address').val() + '&phoneNumber=' + $('.signup-phonenumber').val() + '&salary=' + $('.signup-salary').val() + '&tenure=' + $('.signup-tenure').val(),
+            dataType: 'json',
+            beforeSend: function (xhr) {
                 $('.signup-button').text("Loading...");
             }
-          })
-            .done(function( data ) {
+        })
+            .done(function (data) {
                 var jsonResponse = JSON.stringify(data);
                 var response = JSON.parse(jsonResponse);
-                if(response.status == "Success"){
+                if (response.status == "Success") {
                     $('.signup-button').text("Sign Up");
                     localStorage.setItem("email", $('.signup-email').val());
                     window.location.replace("/dashboard");
-                }else{
+                } else {
                     alert(response.error);
                 }
-        })
-    }else{
+            })
+    } else {
         alert("One of the values is not validated properly, please check again!");
     }
 })
