@@ -25,10 +25,30 @@ module.exports.routes = {
   '/mbr/verify'  : {controller: 'MbrServiceController', action: 'mbrVerify', locals: {layout: 'layouts/mbr/layout.ejs'}},
 
   // Application routes
-  '/mbr': { view: 'pages/mbr/homepage', locals: {layout: 'layouts/mbr/layout.ejs'}},
+
+  '/mbr'           : {view: 'pages/mbr/homepage', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/signup'    : {view: 'pages/mbr/signup', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/signin'    : {view: 'pages/mbr/signin', locals: {layout: 'layouts/mbr/layout.ejs'}},
-  '/mbr/dashboard' : {view: 'pages/mbr/dashboard', locals: {layout: 'layouts/mbr/layout.ejs'}}
+  '/mbr/dashboard' : {view: 'pages/mbr/dashboard', locals: {layout: 'layouts/mbr/layout.ejs'}},
+
+  '/employee': { view: 'pages/homepage' },
+  '/employee/signup' : { view: 'pages/signup'},
+  '/employee/signin' : {view: 'pages/signin'},
+  '/employee/dashboard' : {view: 'pages/dashboard'},
+  
+
+  //Employee Application Route
+  '/employee/Portal' : { view: 'pages/EmployerPortal'},
+  '/employee/SignIn' : {view:'pages/EmployeeSignIn'},
+  '/employee/SignUp' : {view:'pages/EmployeeSignUp'},
+  '/employee/MortgageSend' : {view:'pages/MortgageInfoSupply'},
+
+  //Employee web service Route
+  '/employee/create' : { 
+    controller: 'EmployeeController',
+    action : 'create'
+  }
+
 
   /***************************************************************************
   *                                                                          *
