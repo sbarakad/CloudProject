@@ -19,7 +19,7 @@ $(document).ready(function () {
         var emailID = localStorage.getItem("email");
         if (emailID) {
             $.ajax({
-                url: 'http://localhost:1337/status?email=' + emailID,
+                url: 'http://localhost:1337/mbr/status?email=' + emailID,
                 dataType: 'json',
                 beforeSend: function (xhr) {
 
@@ -44,11 +44,11 @@ $(document).ready(function () {
 
 $(document).on("click", "li.logout", function () {
     localStorage.clear();
-    window.location.replace("/");
+    window.location.replace("/mbr");
 })
 
 $(document).on("click", "li.dashboard", function () {
-    window.location.replace("/dashboard");
+    window.location.replace("/mbr/dashboard");
 })
 
 $('.signin-email').focus(function () {
@@ -93,9 +93,8 @@ $('.signin-button').click(function () {
 
     if (validateEmail == true && validPassword == true) {
         var encryptedPassword = CryptoJS.AES.encrypt($('.signin-password').val(), "cloud computing");
-        debugger
         $.ajax({
-            url: 'http://localhost:1337/authUser?email=' + $('.signin-email').val() + '&password=' + encryptedPassword,
+            url: 'http://localhost:1337/mbr/authUser?email=' + $('.signin-email').val() + '&password=' + encryptedPassword,
             dataType: 'json',
             beforeSend: function (xhr) {
 
@@ -106,7 +105,7 @@ $('.signin-button').click(function () {
                 var response = JSON.parse(jsonResponse);
                 if (response.status == "authentic") {
                     localStorage.setItem("email", $('.signin-email').val());
-                    window.location.replace("/dashboard");
+                    window.location.replace("/mbr/dashboard");
                 } else {
                     alert("Username and password combination is not correct");
                 }
@@ -266,9 +265,8 @@ $('.signup-button').click(function () {
 
     if (validSignupEmail == true && validSignupPassword == true && validSignupAddress == true && validSignupName && validSignupPhoneNumber && validSignupSalary && validSignupTenure) {
         var encryptedPassword = CryptoJS.AES.encrypt($('.signup-password').val(), "cloud computing");
-        debugger
         $.ajax({
-            url: 'http://localhost:1337/addUser?name=' + $('.signup-name').val() + '&email=' + $('.signup-email').val() + '&password=' + encryptedPassword + '&address=' + $('.signup-address').val() + '&phoneNumber=' + $('.signup-phonenumber').val() + '&salary=' + $('.signup-salary').val() + '&tenure=' + $('.signup-tenure').val(),
+            url: 'http://localhost:1337/mbr/addUser?name=' + $('.signup-name').val() + '&email=' + $('.signup-email').val() + '&password=' + encryptedPassword + '&address=' + $('.signup-address').val() + '&phoneNumber=' + $('.signup-phonenumber').val() + '&salary=' + $('.signup-salary').val() + '&tenure=' + $('.signup-tenure').val(),
             dataType: 'json',
             beforeSend: function (xhr) {
                 $('.signup-button').text("Loading...");
@@ -280,7 +278,7 @@ $('.signup-button').click(function () {
                 if (response.status == "Success") {
                     $('.signup-button').text("Sign Up");
                     localStorage.setItem("email", $('.signup-email').val());
-                    window.location.replace("/dashboard");
+                    window.location.replace("/mbr/dashboard");
                 } else {
                     alert(response.error);
                 }

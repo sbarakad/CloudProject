@@ -19,20 +19,22 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
   // Service routes
-  '/addUser': {controller: 'MbrServiceController', action: 'addUser'},
-  '/authUser': {controller: 'MbrServiceController', action: 'login'},
-  '/status': {controller: 'MbrServiceController', action: 'status'},
-  '/verify': {controller: 'MbrServiceController', action: 'verify'},
-  // '/addUser' : 'UserManagmentController.addUser',
-  // '/authUser' : 'UserManagmentController.login',
-  // '/status' : 'UserManagmentController.status', 
-  // '/verify' : 'UserManagmentController.verify',
+  '/mbr/addUser' : {controller: 'MbrServiceController', action: 'mbrAddUser', locals: {layout: 'layouts/mbr/layout.ejs'}},
+  '/mbr/authUser': {controller: 'MbrServiceController', action: 'mbrAuthUser', locals: {layout: 'layouts/mbr/layout.ejs'}},
+  '/mbr/status'  : {controller: 'MbrServiceController', action: 'mbrStatus', locals: {layout: 'layouts/mbr/layout.ejs'}},
+  '/mbr/verify'  : {controller: 'MbrServiceController', action: 'mbrVerify', locals: {layout: 'layouts/mbr/layout.ejs'}},
 
   // Application routes
-  '/': { view: 'pages/homepage' },
-  '/signup' : { view: 'pages/signup'},
-  '/signin' : {view: 'pages/signin'},
-  '/dashboard' : {view: 'pages/dashboard'},
+
+  '/mbr'           : {view: 'pages/mbr/homepage', locals: {layout: 'layouts/mbr/layout.ejs'}},
+  '/mbr/signup'    : {view: 'pages/mbr/signup', locals: {layout: 'layouts/mbr/layout.ejs'}},
+  '/mbr/signin'    : {view: 'pages/mbr/signin', locals: {layout: 'layouts/mbr/layout.ejs'}},
+  '/mbr/dashboard' : {view: 'pages/mbr/dashboard', locals: {layout: 'layouts/mbr/layout.ejs'}},
+
+  '/employee': { view: 'pages/homepage' },
+  '/employee/signup' : { view: 'pages/signup'},
+  '/employee/signin' : {view: 'pages/signin'},
+  '/employee/dashboard' : {view: 'pages/dashboard'},
   
 
   //Employee Application Route
@@ -52,6 +54,7 @@ module.exports.routes = {
     controller : 'EmployeeController',
     action : 'authenticateUser'
   }
+
 
   /***************************************************************************
   *                                                                          *

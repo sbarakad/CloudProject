@@ -7,7 +7,7 @@
 
 module.exports = {
 
-    addUser: function (req, res) {
+    mbrAddUser: function (req, res) {
         var name = req.param("name");
         var email = req.param("email");
         var password = req.param("password");
@@ -15,6 +15,8 @@ module.exports = {
         var phoneNumber = req.param("phoneNumber");
         var tenure = req.param("tenure");
         var salary = req.param("salary");
+
+        // res.locals.layout = 'layouts/mbr/layout.ejs';
 
         MbrUser.create({
             Name: name, Email: email,
@@ -39,9 +41,11 @@ module.exports = {
             });
     },
 
-    login: function (req, res) {
+    mbrLogin: function (req, res) {
         var email = req.param("email");
         var password = req.param("password");
+
+        // res.locals.layout = 'layouts/mbr/layout.ejs';
 
         MbrUser.findOne({ Email: email })
             .exec(function (err, user) {
@@ -62,9 +66,11 @@ module.exports = {
             })
     },
 
-    status: function (req, res) {
+    mbrStatus: function (req, res) {
         var email = req.param("email");
-        
+
+        // res.locals.layout = 'layouts/mbr/layout.ejs';
+
         MbrUser.findOne({ Email: email })
             .exec(function (err, user) {
                 if (err) {
@@ -75,12 +81,14 @@ module.exports = {
             })
     },
 
-    verify: function (req, res) {
+    mbrVerify: function (req, res) {
         var name = req.param("name");
         var email = req.param("email");
         var tenure = req.param("tenure");
         var salary = req.param("salary");
         var id = req.param("id");
+
+        // res.locals.layout = 'layouts/mbr/layout.ejs';
 
         MbrUser.findOne({ id: id })
             .exec(function (err, user) {
