@@ -38,18 +38,24 @@ module.exports.routes = {
   '/employee/signup' : { view: 'pages/signup'},
   '/employee/signin' : {view: 'pages/signin'},
   '/employee/dashboard' : {view: 'pages/dashboard'},
-  
 
+  
   //Employee Application Route
-  '/employee/Portal' : { view: 'pages/EmployerPortal'},
-  '/employee/SignIn' : {view:'pages/EmployeeSignIn'},
-  '/employee/SignUp' : {view:'pages/EmployeeSignUp'},
-  '/employee/MortgageSend' : {view:'pages/MortgageInfoSupply'},
+  '/employee' : { view: 'pages/employee/Portal', locals: {layout: 'layouts/employee/layout.ejs'}},
+  '/employee/SignIn' : {view:'pages/employee/SignIn', locals: {layout: 'layouts/employee/layout.ejs'}},
+  '/employee/SignUp' : {view:'pages/employee/SignUp', locals: {layout: 'layouts/employee/layout.ejs'}},
+  '/employee/MortgageSend' : {view:'pages/employee/MortgageInfoSupply', locals: {layout: 'layouts/employee/layout.ejs'}},
+  '/employee/MissMatch' : {view:'pages/employee/mismatch', locals: {layout: 'layouts/employee/layout.ejs'}},
 
   //Employee web service Route
-  '/employee/create' : { 
+  'Post /employee/create' : { 
     controller: 'EmployeeController',
     action : 'create'
+  },
+
+  'Post /employee/auth' : {
+    controller : 'EmployeeController',
+    action : 'authenticateUser'
   }
 
 

@@ -13,23 +13,23 @@ module.exports = {
         var password = req.body.password;
         var tenure = req.body.tenure;
         var empID = Math.floor(Math.random() * 200);
-        Employer.create({
+        Employee.create({
           empID: empID,
           email: email,
           fullName: name,
           salary: salary,
           tenure: tenure,
           password:password
-        }).exec(function(err) {
-          if (err) {
+        }).exec(function(req_err) {
+          if (req_err) {
             var log = "Database Error";
             var timestamp = new Date().getTime();
             var server = "Employee"
             Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
                 if(err){
-                    res.send(500,{error:'Logging Error'});
+                    return res.status(500).send({error:'Logging Error'});
                 }
-            res.send(500, { error: "Database Error" });
+                return res.status(500).send({ error: req_err });
             });
           }
           var log = "Employer profile completed.";
@@ -37,9 +37,9 @@ module.exports = {
           var server = "Company"
           Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
             if(err){
-                  res.send(500,{error:'Logging Error'});
+                  return res.send(500,{error:'Logging Error'});
             }
-            res.redirect("/employee/SignIn");
+            return res.redirect("/employee/SignIn");
           });
         });
       },
@@ -58,7 +58,7 @@ module.exports = {
     var employeeId = req.body.empID;
     var address = req.body.address;
     var mbrID = req.body.mbrID;
-    Employer.find({empID: employeeId}).exec(function(err, result) {
+    Employee.find({empID: employeeId}).exec(function(err, result) {
         var data = result[0];
         var name = data.fullName;
         var tenure = data.tenure;
@@ -117,46 +117,49 @@ module.exports = {
     },
 
     authenticateUser: function (req, res) {
-    var password=req.body.password;
-    var employeeId = req.body.empID;
-    Employer.find({empID: employeeId}).exec(function(err, result) {
-        var data = result[0];
-        if (err) {
-        var log = "Database Error when retrieving info about employee with ID "
-        var timestamp = new Date().getTime();
-        var server = "Company"
-        Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                        if(err){
-                res.send(500,{error:'Database Error'});
+        var password=req.body.password;
+        var email = req.body.email;
+        Employee.find({email: email}).exec(function(err, result) {
+            if (err) {
+                var log = "Database Error when retrieving info about employee with ID "
+                var timestamp = new Date().getTime();
+                var server = "Company"
+                Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                    if(err){
+                        res.send(500,{error:'Logging Error'});
+                    }
+                });
+                res.send(500, { error: "Database Error when retrieving info about employee with email " + email});
             }
-        });
-        res.send(500, { error: "Database Error when retrieving info about employee with ID " + employeeId});
-        }
-
-        if(0 == result.length) {
-        res.send("Failed to authenticate the employee with the ID " + employeeId);
-        }
+            if(0 == result.length) {
+                return res.redirect("/employee/MissMatch");
+            }
+            else
+            {
+                var data = result[0];
+            }
+            
             if(data.password === password){
-            var log = "Authentic user."
-            var timestamp = new Date().getTime();
-            var server = "Company"
-            Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                                if(err){
-                    res.send(500,{error:'Database Error'});
-                }
-            });
-            res.redirect("https://company-portal-frontend.herokuapp.com/employee/authenticate?authenticated=true&empID="+employeeId);
+                var log = "Authentic user."
+                var timestamp = new Date().getTime();
+                var server = "Company"
+                Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                                    if(err){
+                        res.send(500,{error:'Logging Error'});
+                    }
+                });
+                return res.redirect("/employee/MortgageSend?&empID="+data.empID);
             }
             else{
-            var log = "Not authentic user."
-            var timestamp = new Date().getTime();
-            var server = "Company"
-            Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                                if(err){
-                    res.send(500,{error:'Database Error'});
-                }
-            });
-            res.redirect("https://company-portal-frontend.herokuapp.com/employee/authenticate?authenticated=false");
+                var log = "Not authentic user."
+                var timestamp = new Date().getTime();
+                var server = "Company"
+                Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                    if(err){
+                        res.send(500,{error:'Database Error'});
+                    }
+                });
+                return res.redirect("/employee/MissMatch");
             }
         })
     },

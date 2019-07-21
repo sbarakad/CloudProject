@@ -8,10 +8,10 @@
 module.exports = {
 
   attributes: {
-    id: { type: 'string', columnName: '_id' ,     autoIncrement: true },
-    log: { type: 'string', columnName: '_logs' },
-    time: { type: 'string', columnName: '_timestamp' },
-    server: { type: 'string', columnName: '_service' },
+    id: { type: 'string',autoIncrement: true },
+    log: { type: 'string'},
+    time: { type: 'string'},
+    server: { type: 'string'},
   },
 
 };

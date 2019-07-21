@@ -8,12 +8,12 @@
 module.exports = {
 
   attributes: {
-    empID: { type: 'number', columnName: 'employeeID',required:true},
-    password: { type: 'string', columnName: 'password'},
-    fullName:{type:'string', columnName:'fullName'},
-    salary:{type:'string', columnName:'salary'},
-    tenure:{type:'string', columnName:'tenure'},
-    email:{type:'string', columnName:'email'}
+    empID: { type: 'number',required:true, unique: true},
+    password: {type: 'string'},
+    fullName:{type:'string'},
+    salary:{type:'string'},
+    tenure:{type:'string'},
+    email:{type:'string', unique: true, required: true}
    
   },
 
