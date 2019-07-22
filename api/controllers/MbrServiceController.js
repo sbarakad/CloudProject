@@ -4,23 +4,13 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
-// var Logger = require('../../assets/custom/LoggerService');
+var Logger = require('../../assets/custom/LoggerService');
 
 module.exports = {
     
     mbrAddUser: function (req, res) {
 
-        // var log = "Database Error";
-        // var timestamp = new Date().getTime();
-        // var server = "Employee"
-        // Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-        //     if(err){
-        //         return res.status(500).send({error:'Logging Error'});
-        //     }
-        //     return res.status(500).send({ error: req_err });
-        // });
-
-        // Logger("call: mbrAddUser", "MbrServiceController.mbrAddUser");
+        Logger("call: mbrAddUser", "MbrServiceController.mbrAddUser");
 
         var name = req.param("name");
         var email = req.param("email");
@@ -62,7 +52,7 @@ module.exports = {
 
     mbrLogin: function (req, res) {
 
-        // Logger("call: mbrLogin", "MbrServiceController.mbrLogin");
+        Logger("call: mbrLogin", "MbrServiceController.mbrLogin");
 
         var email = req.param("email");
         var password = req.param("password");
@@ -70,11 +60,11 @@ module.exports = {
         MbrUser.findOne({ Email: email })
             .exec(function (err, user) {
                 if (err) {
-                    // Logger(err, "MbrServiceController.mbrLogin");
+                    Logger(err, "MbrServiceController.mbrLogin");
                     res.send(err);
                 } else {
                     if (!user) {
-                        // Logger("Email is not registered", "MbrServiceController.mbrLogin");
+                        Logger("Email is not registered", "MbrServiceController.mbrLogin");
                         res.send({ status: "unauthentic", error: "Email is not registered" })
                     } else {
                         if (password == user.Password) {
@@ -91,14 +81,14 @@ module.exports = {
 
     mbrStatus: function (req, res) {
 
-        // Logger("call: mbrStatus", "MbrServiceController.mbrStatus");
+        Logger("call: mbrStatus", "MbrServiceController.mbrStatus");
 
         var email = req.param("email");
 
         MbrUser.findOne({ Email: email })
             .exec(function (err, user) {
                 if (err) {
-                    // Logger(err, "MbrServiceController.mbrStatus");
+                    Logger(err, "MbrServiceController.mbrStatus");
                     res.send(err);
                 } else {
                     res.send(user)
@@ -108,7 +98,7 @@ module.exports = {
 
     confirmEmploymentStatus: function (req, res) {
 
-        // Logger("call: confirmEmploymentStatus", "MbrServiceController.confirmEmploymentStatus");
+        Logger("call: confirmEmploymentStatus", "MbrServiceController.confirmEmploymentStatus");
 
         var name = req.param("name");
         var email = req.param("email");
@@ -119,11 +109,11 @@ module.exports = {
         MbrUser.findOne({ id: id })
             .exec(function (err, user) {
                 if (err) {
-                    // Logger(err, "MbrServiceController.confirmEmploymentStatus");
+                    Logger(err, "MbrServiceController.confirmEmploymentStatus");
                     res.send(err);
                 } else {
                     if (!user) {
-                        // Logger("Invalid id", "MbrServiceController.confirmEmploymentStatus");
+                        Logger("Invalid id", "MbrServiceController.confirmEmploymentStatus");
                         return res.send({ status: "fail", error: "Invalid id" })
                     }
                     if (name == user.Name && email == user.Email && tenure == user.Tenure && salary == user.Salary) {
@@ -131,7 +121,7 @@ module.exports = {
                             Status: "Application Accepted"
                         }).exec(function (err) {
                             if (err) {
-                                // Logger(err, "MbrServiceController.confirmEmploymentStatus");
+                                Logger(err, "MbrServiceController.confirmEmploymentStatus");
                                 res.send(err);
                             }
                         })
@@ -151,7 +141,7 @@ module.exports = {
 
     mbrConfirmInsuranceAvailability: function(req, res) {
 
-        // Logger("call: mbrConfirmInsuranceAvailability", "MbrServiceController.mbrConfirmInsuranceAvailability");
+        Logger("call: mbrConfirmInsuranceAvailability", "MbrServiceController.mbrConfirmInsuranceAvailability");
 
         var mortId = req.param("MortId");
         var mlsID = req.param("MlsID");
@@ -163,7 +153,7 @@ module.exports = {
         MbrUser.findOne({ id: mortId })
             .exec(function (err, user) {
                 if (err) {
-                    // Logger(err, "MbrServiceController.mbrConfirmInsuranceAvailability");
+                    Logger(err, "MbrServiceController.mbrConfirmInsuranceAvailability");
                     res.send(err);
                 } else {
                     if (!user || user.MlsID != mlsID || user.Name != applicantName) {
@@ -176,7 +166,7 @@ module.exports = {
                             Deductable: deductable
                         }).exec(function (err) {
                             if (err) {
-                                // Logger(err, "MbrServiceController.mbrConfirmInsuranceAvailability");
+                                Logger(err, "MbrServiceController.mbrConfirmInsuranceAvailability");
                                 res.send(err);
                             }
                         })
@@ -185,7 +175,7 @@ module.exports = {
                             IsInsurable: false
                         }).exec(function (err) {
                             if (err) {
-                                // Logger(err, "MbrServiceController.mbrConfirmInsuranceAvailability");
+                                Logger(err, "MbrServiceController.mbrConfirmInsuranceAvailability");
                                 res.send(err);
                             }
                         })
