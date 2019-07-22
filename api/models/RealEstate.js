@@ -7,15 +7,12 @@
 
 module.exports = {
 
-  attributes: {
-
     attributes: {
       MortID: { type: 'number',required:true, unique: true},
       fullName:{type:'string',required:true},
       MlsID: { type: 'number',required:true, unique: true},
       value: { type: 'number'},
     },
-  },
 
 };
 

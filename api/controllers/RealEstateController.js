@@ -31,6 +31,29 @@ module.exports = {
             });
     },
 
+    fetchAppraisals: function (req, res) {
+
+        RealEstate.create({
+            fullName: name, 
+            MlsID : MlsID,
+            MortID : MortID
+        })
+            .exec(function (err) {
+                if (err) {
+                    var errCode = err.code;
+                    if (errCode == "E_UNIQUE") {
+                        res.send({ error: "MortID or MlsID already exist", status: "fail" });
+                    }  else {
+                        res.send({ error: message, status: "fail" });
+                    }
+                } else {
+                    res.send({ status: "Success" });
+                }
+            });
+    },
+
+
+
 
 };
 
