@@ -18,6 +18,9 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
+// Logger routes:
+  '/show-logs' : {controller: 'LoggerController', action: 'showLogs', locals: {layout: 'layouts/mbr/layout.ejs'}},
+
   // MBR Service routes:
   '/mbr/addUser' : {controller: 'MbrServiceController', action: 'mbrAddUser', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/mbrLogin': {controller: 'MbrServiceController', action: 'mbrLogin', locals: {layout: 'layouts/mbr/layout.ejs'}},
@@ -33,6 +36,9 @@ module.exports.routes = {
 
   // INSinc Service routes:
   '/insinc/check-insurance-availability' : {controller: 'INSincController', action: 'checkInsuranceAvailability'},
+
+  // Logger routes:
+  '/show-logs' : {controller: 'LoggerController', action: 'showLogs', locals: {layout: 'layouts/mbr/layout.ejs'}},
 
   '/employee': { view: 'pages/homepage' },
   '/employee/signup' : { view: 'pages/signup'},
