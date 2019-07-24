@@ -56,7 +56,30 @@ module.exports.routes = {
   'Post /employee/auth' : {
     controller : 'EmployeeController',
     action : 'authenticateUser'
+  },
+
+  //Real Estate web Services
+  'Post /realEstate/reqAppraisal' : {
+    controller : 'RealEstateController',
+    action: 'requestAppraisal'
+  },
+
+  'Get /realEstate/fetchAppraisals' : {
+    controller : 'RealEstateController',
+    action: 'fetchAppraisals'
+  },
+
+  'Post /realEstate/appraiserSignUp' : {
+    controller : 'RealEstateController',
+    action: 'appraiserSignUp'
+  },
+
+  'Post /realEstate/appraiserLogIn' : {
+    controller : 'RealEstateController',
+    action: 'appraiserLogin'
   }
+
+
 
 
   /***************************************************************************

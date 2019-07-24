@@ -55,7 +55,7 @@ module.exports = {
         });
     },
     supplyMBRinfo:function(req, res) {
-    var employeeId = req.body.empID;
+    var employeeId = req.body.empID  ;
     var address = req.body.address;
     var mbrID = req.body.mbrID;
     Employee.find({empID: employeeId}).exec(function(err, result) {
