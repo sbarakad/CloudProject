@@ -4,10 +4,14 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
+var Logger = require('../../assets/custom/LoggerService');
 
 module.exports = {
   
     checkInsuranceAvailability: function(req, res) {
+
+        Logger("call: mbrAddcheckInsuranceAvailabilityUser", "INSincController.checkInsuranceAvailability");
+
         var mortId = req.param("MortId");
         var mlsID = req.param("MlsID");
         var appraisalValue = req.param("appraisalValue");
@@ -32,7 +36,7 @@ module.exports = {
                 url: url
                 }, function(error) {
                 if (error) {
-                    // Logger log error
+                    Logger(error, "INSincController.checkInsuranceAvailability");
                 } else {
                     res.send({ status: "declined", reason: "Appraisal value is less than 50000." });
                 }
@@ -53,7 +57,7 @@ module.exports = {
                 url: url
                 }, function(error) {
                 if (error) {
-                    // Logger log error
+                    Logger(error, "INSincController.checkInsuranceAvailability");
                 } else {
                     res.send({ status: "approved", reason: "Appraisal value is higher than 50000." });
                 }

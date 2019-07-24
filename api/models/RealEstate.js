@@ -13,6 +13,5 @@ module.exports = {
       MlsID: { type: 'number',required:true},
       value: { type: 'number'},
     },
-
 };
 
