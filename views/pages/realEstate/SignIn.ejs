@@ -1,0 +1,53 @@
+<html>
+  <body>
+     
+    <div class="container">
+      <div class="card">
+        <div class="card-header">Sign In</div>
+        <div class="card-body">
+          <form class="w-50 m-auto" action='/realEstate/appraiserLogIn' id='signIn'>
+            <div class="form-group">
+              <label> Email: </label>
+              <input type="string" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label> Password: </label>
+              <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-success">Log In</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+
+
+<script>
+    $("#signIn").submit(function(event){
+        event.preventDefault();
+        fetch(event.target.action, {
+            method: 'POST',
+            body: new URLSearchParams(new FormData(event.target))
+        }).then(response => response.json())
+        .then(data => {
+            if(data.status == 'unauthentic')
+            {
+                alert(data.error);
+            }
+            else
+            {
+                $.ajax({
+                    data:data,
+                    url:URL,
+                    type:"GET",
+                })
+                .done(function (res) { document.getElementById("BMI").value = res.BodyMassIndex })
+                .fail(function() { alert("Cannot connect to web service")});
+            }
+        })
+        .catch(error => console.log('error is', error));
+    }); 
+</script>

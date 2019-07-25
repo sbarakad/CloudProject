@@ -64,6 +64,18 @@ module.exports.routes = {
     action : 'authenticateUser'
   },
 
+
+  //Real Estate frontend
+  '/realEstate/SignUp' : {
+    view: 'pages/realEstate/SignUp',
+    locals:{layout:'layouts/realEstate/layout.ejs'}
+  },
+
+  '/realEstate/SignIn' : {
+    view: 'pages/realEstate/SignIn',
+    locals:{layout:'layouts/realEstate/layout.ejs'}
+  },
+
   //Real Estate web Services
   'Post /realEstate/reqAppraisal' : {
     controller : 'RealEstateController',
