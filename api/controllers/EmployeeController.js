@@ -46,10 +46,11 @@ module.exports = {
     // SHOW DATABASE OF COMPANY.
     getEmployeeDB:function(req,res){
       Employee.find({}).exec(function(err,rec){
+
         if(err){
             res.send(500,{error:'Database Error'});
         }
-        res.view('pages/employee/listCompany',{recList:rec})
+       res.view('pages/employee/listCompany',{recList:rec})
       });
     },
 
