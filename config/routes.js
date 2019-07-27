@@ -58,7 +58,8 @@ module.exports.routes = {
   },
 
   'Get /employee/sendInfo' : {
-
+    controller : 'EmployeeController',
+    action : 'supplyMBRinfo'    
   },
 
 
@@ -70,6 +71,11 @@ module.exports.routes = {
 
   '/realEstate/SignIn' : {
     view: 'pages/realEstate/SignIn',
+    locals:{layout:'layouts/realEstate/layout.ejs'}
+  },
+
+  '/realEstate/applicationForm' : {
+    view: 'pages/realEstate/ApplicationForm',
     locals:{layout:'layouts/realEstate/layout.ejs'}
   },
 

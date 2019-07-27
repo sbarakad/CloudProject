@@ -36,7 +36,6 @@ module.exports = {
         RealEstate.find({})
             .exec(function (err,Appraisals) {
                 if (err) {
-                    var errCode = err.code;
                     return res.send({error:err});
                 } else {
                     res.send(Appraisals);
@@ -90,27 +89,7 @@ module.exports = {
             })
     },
 
-    // appraiserAuthentication: function (req, res) {
-
-    //     Appraiser.findOne({ email: email })
-    //     .exec(function (err, appraiser) {
-    //         if (err) {
-    //             res.send(err);
-    //         } else {
-    //             if (!appraiser) {
-    //                 res.send({ status: "unauthentic", error: "Appraiser is not registered" })
-    //             } else {
-    //                 if (password == appraiser.password) {
-    //                     res.send({ status: "authentic" })
-    //                 } else {
-    //                     res.send({ status: "unauthentic", error: "Email-Password combination does not exist" })
-    //                 }
-    //             }
-    //         }
-    //     })
-    // },
-
-
+    
 
 };
 
