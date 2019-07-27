@@ -43,7 +43,16 @@ module.exports = {
           });
         });
       },
-    
+    // SHOW DATABASE OF COMPANY.
+    getEmployeeDB:function(req,res){
+      Employee.find({}).exec(function(err,rec){
+        if(err){
+            res.send(500,{error:'Database Error'});
+        }
+        res.view('pages/employee/listCompany',{recList:rec})
+      });
+    },
+
     MBRcall: function(req, res) {
     var log = "Checking for values in the JSON response from the company server";
         var timestamp = new Date().getTime();
@@ -138,7 +147,7 @@ module.exports = {
             {
                 var data = result[0];
             }
-            
+
             if(data.password === password){
                 var log = "Authentic user."
                 var timestamp = new Date().getTime();

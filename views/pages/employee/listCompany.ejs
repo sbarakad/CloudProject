@@ -1,0 +1,27 @@
+<h1 class="display-4">Logger</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>empID</th>
+      <th>password</th>
+      <th>fullName</th>
+      <th>salary</th>
+      <th>tenure</th>
+      <th>email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% recList.forEach(function(record){ %>
+    <tr>
+      <td><%= record.id %></td>
+      <td><%= record.empID %></td>
+      <td><%= record.password %></td>
+      <td><%= record.fullName %></td>
+      <td><%= record.salary %></td>
+      <td><%= record.tenure %></td>
+      <td><%= record.email %></td>
+    <% }) %>
+    </tr>
+  </tbody>
+</table>
