@@ -43,7 +43,17 @@ module.exports = {
           });
         });
       },
-    
+    // SHOW DATABASE OF COMPANY.
+    getEmployeeDB:function(req,res){
+      Employee.find({}).exec(function(err,rec){
+
+        if(err){
+            res.send(500,{error:'Database Error'});
+        }
+       res.view('pages/employee/listCompany',{recList:rec})
+      });
+    },
+
     MBRcall: function(req, res) {
     var log = "Checking for values in the JSON response from the company server";
         var timestamp = new Date().getTime();
@@ -54,7 +64,7 @@ module.exports = {
             }
         });
     },
-    
+
     supplyMBRinfo:function(req, res) {
         var employeeId = req.body.empID  ;
         var address = req.body.address;
@@ -139,7 +149,8 @@ module.exports = {
             {
                 var data = result[0];
             }
-            
+
+
 
             console.log(data.password);
             if(data.password === password){
