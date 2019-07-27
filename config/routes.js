@@ -40,10 +40,10 @@ module.exports.routes = {
   // Logger routes:
   '/show-logs' : {controller: 'LoggerController', action: 'showLogs', locals: {layout: 'layouts/mbr/layout.ejs'}},
 
-  '/employee': { view: 'pages/homepage' },
-  '/employee/signup' : { view: 'pages/signup'},
-  '/employee/signin' : {view: 'pages/signin'},
-  '/employee/dashboard' : {view: 'pages/dashboard'},
+  // '/employee': { view: 'pages/employee/homepage' },
+  '/employee/signup' : { view: 'pages/employee/SignUp'},
+  '/employee/signin' : {view: 'pages/employee/SignIn'},
+  // '/employee/dashboard' : {view: 'pages/dashboard'},
 
   
   //Employee Application Route
