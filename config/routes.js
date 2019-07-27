@@ -19,7 +19,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 // Logger routes:
-  '/show-logs' : {controller: 'LoggerController', action: 'showLogs', locals: {layout: 'layouts/mbr/layout.ejs'}},
+  '/show-logs' : {controller: 'LoggerController', action: 'showLogs', locals: {layout: 'layouts/layout.ejs'}},
 
   // MBR Service routes:
   '/mbr/addUser' : {controller: 'MbrServiceController', action: 'mbrAddUser', locals: {layout: 'layouts/mbr/layout.ejs'}},
@@ -33,21 +33,27 @@ module.exports.routes = {
   '/mbr/signup'    : {view: 'pages/mbr/signup', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/signin'    : {view: 'pages/mbr/signin', locals: {layout: 'layouts/mbr/layout.ejs'}},
   '/mbr/dashboard' : {view: 'pages/mbr/dashboard', locals: {layout: 'layouts/mbr/layout.ejs'}},
+  'Get /mbr/getMBRDB' :
+  {
+    controller : 'MbrServiceController',
+    action : 'getMBRDB',
+    view:'pages/mbr/listMBR',
+    locals:{layout:'layouts/employee/layout.ejs'}
+  },
+
 
   // INSinc Service routes:
   '/insinc/check-insurance-availability' : {controller: 'INSincController', action: 'checkInsuranceAvailability'},
 
-  // Logger routes:
-  '/show-logs' : {controller: 'LoggerController', action: 'showLogs', locals: {layout: 'layouts/mbr/layout.ejs'}},  
-  
   //Employee Application Route
   '/employee' : { view: 'pages/employee/Portal', locals: {layout: 'layouts/employee/layout.ejs'}},
   '/employee/SignIn' : {view:'pages/employee/SignIn', locals: {layout: 'layouts/employee/layout.ejs'}},
   '/employee/SignUp' : {view:'pages/employee/SignUp', locals: {layout: 'layouts/employee/layout.ejs'}},
   '/employee/MissMatch' : {view:'pages/employee/mismatch', locals: {layout: 'layouts/employee/layout.ejs'}},
+  // '/employee/getEmployeeDB' : {view:'pages/employee/listCompany',locals: {layout: 'pages/employee/listCompany.ejs'}},
 
   //Employee web service Route
-  'Post /employee/create' : { 
+  'Post /employee/create' : {
     controller: 'EmployeeController',
     action : 'create'
   },
@@ -62,11 +68,17 @@ module.exports.routes = {
     action : 'supplyMBRinfo'    
   },
 
+  'Get /employee/getEmployeeDB' : {
+    controller : 'EmployeeController',
+    action : 'getEmployeeDB',
+    view:'pages/employee/listCompany',
+    locals:{layout:'layouts/employee/layout.ejs'}
+  },
 
   //Real Estate frontend
   '/realEstate/SignUp' : {
     view: 'pages/realEstate/SignUp',
-    locals:{layout:'layouts/realEstate/layout.ejs'}
+    locals:{layout:'layouts/employee/layout.ejs'}
   },
 
   '/realEstate/SignIn' : {
@@ -98,9 +110,14 @@ module.exports.routes = {
   'Post /realEstate/appraiserLogIn' : {
     controller : 'RealEstateController',
     action: 'appraiserLogin'
-  }
+  },
 
-
+  'Get /realEstate/getREDB' : {
+    controller : 'RealEstateController',
+    action: 'getREDB',
+    view:'pages/realEstate/listRE',
+    locals:{layout:'layouts/employee/layout.ejs'}
+  },
 
 
   /***************************************************************************

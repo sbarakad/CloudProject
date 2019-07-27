@@ -1,0 +1,24 @@
+<h1 class="display-4">RE Table</h1>
+<br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>MortID</th>
+      <th>fullName</th>
+      <th>MlsID</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% recList.forEach(function(record){ %>
+    <tr>
+      <td><%= record.id %></td>
+      <td><%= record.MortID %></td>
+      <td><%= record.fullName %></td>
+      <td><%= record.MlsID %></td>
+      <td><%= record.value %></td>
+    <% }) %>
+    </tr>
+  </tbody>
+</table>

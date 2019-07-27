@@ -13,7 +13,7 @@ module.exports = {
         var MlsID = req.param("MlsID");
 
         RealEstate.create({
-            fullName: name, 
+            fullName: name,
             MlsID : MlsID,
             MortID : MortID
         })
@@ -30,6 +30,15 @@ module.exports = {
                 }
             });
     },
+    // SHOW DATABASE OF COMPANY.
+    getREDB:function(req,res){
+      RealEstate.find({}).exec(function(err,rec){
+        if(err){
+            res.send(500,{error:'Database Error'});
+        }
+       res.view('pages/realEstate/listRE',{recList:rec})
+      });
+    },
 
     fetchAppraisals: function (req, res) {
 
@@ -43,7 +52,7 @@ module.exports = {
             });
     },
 
-    
+
     appraiserSignUp: function (req, res) {
         var email = req.param("email");
         var password = req.param("password");
