@@ -63,66 +63,67 @@ module.exports = {
             }
         });
     },
+
     supplyMBRinfo:function(req, res) {
-    var employeeId = req.body.empID  ;
-    var address = req.body.address;
-    var mbrID = req.body.mbrID;
-    Employee.find({empID: employeeId}).exec(function(err, result) {
-        var data = result[0];
-        var name = data.fullName;
-        var tenure = data.tenure;
-        var salary = data.salary;
-        var email = data.email;
+        var employeeId = req.body.empID  ;
+        var address = req.body.address;
+        var mbrID = req.body.mbrID;
+        Employee.find({empID: employeeId}).exec(function(err, result) {
+            var data = result[0];
+            var name = data.fullName;
+            var tenure = data.tenure;
+            var salary = data.salary;
+            var email = data.email;
 
-        if (err) {
-        res.send(500, { error: "Database Error when retrieving info about employee with ID " + employeeId});
-        }
-        var endpointURL = address+"?name="+name+"&email="+email+"&id="+mbrID+"&tenure="+tenure+"&salary="+salary+"";
-        var log = "MBR id = "+mbrID;
-        var timestamp = new Date().getTime();
-        var server = "Company"
-        Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                    if(err){
-                res.send(500,{error:'Database Error'});
+            if (err) {
+            res.send(500, { error: "Database Error when retrieving info about employee with ID " + employeeId});
             }
+            var endpointURL = address+"?name="+name+"&email="+email+"&id="+mbrID+"&tenure="+tenure+"&salary="+salary+"";
+            var log = "MBR id = "+mbrID;
+            var timestamp = new Date().getTime();
+            var server = "Company"
+            Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                        if(err){
+                    res.send(500,{error:'Database Error'});
+                }
+            });
+            request.get({
+            url: endpointURL
+            },
+            function(error, response, body) {
+
+                if (error) {
+                var log = "Something went wrong";
+                var timestamp = new Date().getTime();
+                var server = "Company"
+                Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                                    if(err){
+                        res.send(500,{error:'Database Error'});
+                    }
+                });
+                }
+                else {
+                var log = "body,response,enpoint=>"+body+response+endpointURL;
+                var timestamp = new Date().getTime();
+                var server = "Company"
+                Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                                    if(err){
+                        res.send(500,{error:'Database Error'});
+                    }
+                });
+
+                var bodyObject = JSON.parse(body);
+                var status = bodyObject.status;
+
+                if("success" == status) {
+                    res.send("<h2><center>We have successfully forwarded your application.</h2> <h2><center>Please check MBR portal for the application progress.</center></center></h2>");
+                }
+                else {
+                    res.send("<h2>We have forwarded your application, but some error happened on the MBR side.</h2> <h2> MBR response is: "+body + "</h2>");
+                }
+                }
+            })
         });
-        request.get({
-        url: endpointURL
-        },
-        function(error, response, body) {
-
-            if (error) {
-            var log = "Something went wrong";
-            var timestamp = new Date().getTime();
-            var server = "Company"
-            Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                                if(err){
-                    res.send(500,{error:'Database Error'});
-                }
-            });
-            }
-            else {
-            var log = "body,response,enpoint=>"+body+response+endpointURL;
-            var timestamp = new Date().getTime();
-            var server = "Company"
-            Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                                if(err){
-                    res.send(500,{error:'Database Error'});
-                }
-            });
-
-            var bodyObject = JSON.parse(body);
-            var status = bodyObject.status;
-
-            if("success" == status) {
-                res.send("<h2><center>We have successfully forwarded your application.</h2> <h2><center>Please check MBR portal for the application progress.</center></center></h2>");
-            }
-            else {
-                res.send("<h2>We have forwarded your application, but some error happened on the MBR side.</h2> <h2> MBR response is: "+body + "</h2>");
-            }
-            }
-        })
-    });
     },
 
     authenticateUser: function (req, res) {
@@ -148,6 +149,9 @@ module.exports = {
                 var data = result[0];
             }
 
+
+
+            console.log(data.password);
             if(data.password === password){
                 var log = "Authentic user."
                 var timestamp = new Date().getTime();
@@ -157,7 +161,8 @@ module.exports = {
                         res.send(500,{error:'Logging Error'});
                     }
                 });
-                return res.redirect("/employee/MortgageSend?&empID="+data.empID);
+                res.locals.layout = "layouts/employee/layout.ejs";
+                return res.view('pages/employee/MortgageInfoSupply',{empID:data.empID});
             }
             else{
                 var log = "Not authentic user."
