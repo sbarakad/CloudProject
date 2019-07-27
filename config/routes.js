@@ -40,17 +40,11 @@ module.exports.routes = {
   // Logger routes:
   '/show-logs' : {controller: 'LoggerController', action: 'showLogs', locals: {layout: 'layouts/mbr/layout.ejs'}},
 
-  '/employee': { view: 'pages/homepage' },
-  '/employee/signup' : { view: 'pages/signup'},
-  '/employee/signin' : {view: 'pages/signin'},
-  '/employee/dashboard' : {view: 'pages/dashboard'},
-
   
   //Employee Application Route
   '/employee' : { view: 'pages/employee/Portal', locals: {layout: 'layouts/employee/layout.ejs'}},
   '/employee/SignIn' : {view:'pages/employee/SignIn', locals: {layout: 'layouts/employee/layout.ejs'}},
   '/employee/SignUp' : {view:'pages/employee/SignUp', locals: {layout: 'layouts/employee/layout.ejs'}},
-  '/employee/MortgageSend' : {view:'pages/employee/MortgageInfoSupply', locals: {layout: 'layouts/employee/layout.ejs'}},
   '/employee/MissMatch' : {view:'pages/employee/mismatch', locals: {layout: 'layouts/employee/layout.ejs'}},
 
   //Employee web service Route
@@ -62,6 +56,10 @@ module.exports.routes = {
   'Post /employee/auth' : {
     controller : 'EmployeeController',
     action : 'authenticateUser'
+  },
+
+  'Get /employee/sendInfo' : {
+
   },
 
 

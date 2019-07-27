@@ -39,13 +39,7 @@
             }
             else
             {
-                $.ajax({
-                    data:data,
-                    url:URL,
-                    type:"GET",
-                })
-                .done(function (res) { document.getElementById("BMI").value = res.BodyMassIndex })
-                .fail(function() { alert("Cannot connect to web service")});
+                
             }
         })
         .catch(error => console.log('error is', error));
