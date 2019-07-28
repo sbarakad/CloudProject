@@ -12,10 +12,12 @@
             <tbody>
                 <% Appraisals.forEach(function(Appraisal){ %>
                     <tr>
-                        <td><%= Appraisal.MortID %></td>
-                        <td><%= Appraisal.fullName %></td>
-                        <td><%= Appraisal.MlsID %></td>
-                        <td>Hello</td>
+                        <form>
+                            <td><%= Appraisal.MortID %></td>
+                            <td><%= Appraisal.fullName %></td>
+                            <td><%= Appraisal.MlsID %></td>
+                            <td></td>
+                        </form>
                     </tr>
                 <% }) %>
             </tbody>
