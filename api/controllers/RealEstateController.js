@@ -17,18 +17,21 @@ module.exports = {
             MlsID : MlsID,
             MortID : MortID
         })
-            .exec(function (err) {
-                if (err) {
-                    var errCode = err.code;
-                    if (errCode == "E_UNIQUE") {
-                        res.send({ error: "MortID already exist", status: "fail" });
-                    }  else {
-                        res.send({ error: message, status: "fail" });
-                    }
-                } else {
-                    res.send({ status: "Success" });
+        .exec(function (err) {
+            if (err) {
+
+                var errCode = err.code;
+                if (errCode == "E_UNIQUE") {
+                    //log the error message
+                    res.send({ error: "MortID already exist", status: "fail" });
+                }  else {
+                    res.send({ error: message, status: "fail" });
                 }
-            });
+            } else {
+                //log real estate appraisal submited
+                res.send({ status: "Success" });
+            }
+        });
     },
     // SHOW DATABASE OF COMPANY.
     getREDB:function(req,res){
@@ -43,13 +46,15 @@ module.exports = {
     fetchAppraisals: function (req, res) {
 
         RealEstate.find({})
-            .exec(function (err,Appraisals) {
-                if (err) {
-                    return res.send({error:err});
-                } else {
-                    res.send(Appraisals);
-                }
-            });
+        .exec(function (err,Appraisals) {
+            if (err) {
+                //Log error message: failed to fetch list of appraisals
+                return res.send(err);
+            } else {
+                //Log appraisals fetched
+                res.send(Appraisals);
+            }
+        });
     },
 
 
@@ -61,18 +66,21 @@ module.exports = {
             email : email,
             password : password
         })
-            .exec(function (err) {
-                if (err) {
-                    var errCode = err.code;
-                    if (errCode == "E_UNIQUE") {
-                        res.send({ error: "Email already exist", status: "fail" });
-                    }  else {
-                        res.send({ error: message, status: "fail" });
-                    }
-                } else {
-                    res.send({ status: "Success" });
+        .exec(function (err) {
+            if (err) {
+                var errCode = err.code;
+                if (errCode == "E_UNIQUE") {
+                    //Log error message
+                    res.send({ error: "Email already exist", status: "fail" });
+                }  else {
+                    //log error
+                    res.send({ error: message, status: "fail" });
                 }
-            });
+            } else {
+                //Log real estate appraiser account created
+                res.send({ status: "Success" });
+            }
+        });
     },
 
 
@@ -86,11 +94,14 @@ module.exports = {
                     res.send(err);
                 } else {
                     if (!appraiser) {
+                        //Log error
                         res.send({ status: "unauthentic", error: "Appraiser is not registered" })
                     } else {
                         if (password == appraiser.password) {
+                            //Log user Sign In successfull
                             res.send({ status: "authentic" })
                         } else {
+                            //Log error
                             res.send({ status: "unauthentic", error: "Email-Password combination does not exist" })
                         }
                     }
