@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+    
     create:function(req, res, next){
         var name = req.body.name;
         var email = req.body.email;
@@ -87,41 +88,43 @@ module.exports = {
     },
 
     supplyMBRinfo:function(req, res) {
-        console.log(res.body);
-        console.log(req.body);
-        var employeeId = req.body.empID  ;
-        var address = req.body.address;
-        var mbrID = req.body.mbrID;
+        console.log("inside supply MBR infor");
+        var employeeId = req.param('empID');
+        var address = req.param('address');
+        var mbrID = req.param('mbrID');
+        console.log(mbrID);
+        console.log(address);
+        var request = require('request');
         Employee.find({empID: employeeId}).exec(function(err, result) {
             var data = result[0];
             var name = data.fullName;
             var tenure = data.tenure;
             var salary = data.salary;
             var email = data.email;
-
+            
             if (err) {
             res.send(500, { error: "Database Error when retrieving info about employee with ID " + employeeId});
             } 
-            var endpointURL = address+"?name="+name+"&email="+email+"&id="+mbrID+"&tenure="+tenure+"&salary="+salary+"";
+            var endpointURL = address+"?name="+name+"&email="+email+"&id="+mbrID+"&tenure="+tenure+"&salary="+salary;
+            console.log(endpointURL);
             var log = "MBR id = "+mbrID;
             var timestamp = new Date().getTime();
-            var server = "Company"
-            Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                        if(err){
-                    res.send(500,{error:'Database Error'});
-                }
-            });
+            var server = "Company";
+            // Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+            //             if(err){
+            //         res.send(500,{error:'Database Error'});
+            //     }
+            // })
             request.get({
-            url: endpointURL
-            },
-            function(error, response, body) {
+                url: endpointURL
+            },function(error, response, body) {
 
                 if (error) {
                 var log = "Something went wrong";
                 var timestamp = new Date().getTime();
                 var server = "Company"
                 Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                                    if(err){
+                    if(err){
                         res.send(500,{error:'Database Error'});
                     }
                 });
@@ -140,10 +143,12 @@ module.exports = {
                 var status = bodyObject.status;
 
                 if("success" == status) {
-                    res.send("<h2><center>We have successfully forwarded your application.</h2> <h2><center>Please check MBR portal for the application progress.</center></center></h2>");
+                   // res.send("<h2><center>We have successfully forwarded your application.</h2> <h2><center>Please check MBR portal for the application progress.</center></center></h2>");
+                    res.send("We have successfully forwarded your application. Please check MBR portal for the application progress. ")
                 }
                 else {
-                    res.send("<h2>We have forwarded your application, but some error happened on the MBR side.</h2> <h2> MBR response is: "+body + "</h2>");
+                    // res.send("<h2>We have forwarded your application, but some error happened on the MBR side.</h2> <h2> MBR response is: "+body + "</h2>");
+                    res.send("We have forwarded your application, but some error happened on the MBR side. MBR response is: "+body);
                 }
                 }
             })
@@ -185,8 +190,9 @@ module.exports = {
                         res.send(500,{error:'Logging Error'});
                     }
                 });
-                res.locals.layout = "layouts/employee/layout.ejs";
-                res.view('pages/employee/MortgageInfoSupply',{empID:data.empID});
+                //res.locals.layout = "layouts/employee/layout.ejs";
+                //res.view('pages/employee/MortgageInfoSupply',{empID:data.empID});
+                return res.send({empID:data.empID});
 
             }
             else{

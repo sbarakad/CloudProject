@@ -33,8 +33,12 @@
                     if(result.invalid){
                        alert("Wrong Credentials...please enter correct email and password credentials..!!!") 
                     }else{
-                      $('#mainDiv').html('');
-                      $('#mainDiv').html(result);
+                      //localStorage.setItem("loggedin",true);
+                      // $('#mainDiv').html('');
+                      // $('#mainDiv').html(result);
+                      //alert(result.empID);
+                      var empID=result.empID;
+                      window.location.href="/employee/MortgageInfoSupply?empID="+empID;
                     }
              
                   },
