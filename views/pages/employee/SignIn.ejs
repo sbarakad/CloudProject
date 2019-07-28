@@ -18,12 +18,39 @@
       font-size: 18px;
     }
   </style>
+  <script type="text/javascript">
+  function signin(){
+    var url="/employee/auth";
+    var username=document.getElementById("email").value;
+    var password=document.getElementById("password").value;
+    //alert(username+""+password);
+    $.ajax({
+                  url:url,
+                  type:"POST",
+                  data:{email:username,password:password},
+                  success:function(result){
+                    console.log(result);
+                    if(result.invalid){
+                       alert("Wrong Credentials...please enter correct email and password credentials..!!!") 
+                    }else{
+                      $('#mainDiv').html('');
+                      $('#mainDiv').html(result);
+                    }
+             
+                  },
+                  error:function(error){
+                    console.log("Error ${error}")
+                  }
+                });
+                
+  }
+  </script>
   
   <div class="container-fluid" id="mainDiv">
     <div class="col-lg-4">
   
     </div>
-      <form action="/employee/auth" method="POST">
+      <!-- <form action="/employee/auth" method="POST"> -->
   
     <div class="col-lg-4" id="sign-in-form">
      <div>
@@ -39,11 +66,11 @@
       <label for="password">Password</label>
       <input type="password" class="form-control" id="password" required=true name="password" placeholder="Enter Password">
     </div>
-    <center><button type="submit" class="btn btn-primary" id="btn">Log-in
+    <center><button type="button" class="btn btn-primary" onclick="signin()" id="btn">Log-in
     </div>
   
   </button></center>
-  </form>
+  <!-- </form> -->
   <div class="col-lg-4">
   </div>
   </div>

@@ -6,43 +6,100 @@
  */
 
 module.exports = {
-    create: function(req, res) {
+    create:function(req, res, next){
         var name = req.body.name;
         var email = req.body.email;
-        var salary = req.body.salary;
-        var password = req.body.password;
-        var tenure = req.body.tenure;
-        var empID = Math.floor(Math.random() * 200);
-        Employee.create({
-          empID: empID,
-          email: email,
-          fullName: name,
-          salary: salary,
-          tenure: tenure,
-          password:password
-        }).exec(function(req_err) {
-          if (req_err) {
-            var log = "Database Error";
-            var timestamp = new Date().getTime();
-            var server = "Employee"
-            Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                if(err){
-                    return res.status(500).send({error:'Logging Error'});
+        Employee.find({
+            or : [
+                { name:name },
+                { email:email }
+            ]
+        })
+        .exec(function (err, employees){
+            if (err) {
+                return res.negotiate(err);
+            }
+            if (employees.length) {
+                return res.send({ invalid: 'invalid' });
+               
+            } else {
+                var name = req.body.name;
+                var email = req.body.email;
+                var salary = req.body.salary;
+                var password = req.body.password;
+                var tenure = req.body.tenure;
+                var empID = Math.floor(Math.random() * 200);
+                 Employee.create({
+                    empID: empID,
+                    email: email,
+                    fullName: name,
+                    salary: salary,
+                    tenure: tenure,
+                    password:password
+               }).exec(function(req_err) {
+                if (req_err) {
+                  var log = "Database Error";
+                  var timestamp = new Date().getTime();
+                  var server = "Employee"
+                  Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                      if(err){
+                          return res.status(500).send({error:'Logging Error'});
+                      }
+                      return res.status(500).send({ error: req_err });
+                  });
                 }
-                return res.status(500).send({ error: req_err });
             });
-          }
-          var log = "Employer profile completed.";
+        }
+           var log = "Employer profile completed.";
           var timestamp = new Date().getTime();
           var server = "Company"
           Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
             if(err){
                   return res.send(500,{error:'Logging Error'});
             }
-            return res.redirect("/employee/SignIn");
+            // return res.view("pages/employee/SignIn");
+            return res.send(200,{message:"Profile created successfully!"});
           });
         });
-      },
+        
+    },
+    // create: function(req, res) {
+    //     var name = req.body.name;
+    //     var email = req.body.email;
+    //     var salary = req.body.salary;
+    //     var password = req.body.password;
+    //     var tenure = req.body.tenure;
+    //     var empID = Math.floor(Math.random() * 200);
+    //     Employee.create({
+    //       empID: empID,
+    //       email: email,
+    //       fullName: name,
+    //       salary: salary,
+    //       tenure: tenure,
+    //       password:password
+    //     }).exec(function(req_err) {
+    //       if (req_err) {
+    //         var log = "Database Error";
+    //         var timestamp = new Date().getTime();
+    //         var server = "Employee"
+    //         Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+    //             if(err){
+    //                 return res.status(500).send({error:'Logging Error'});
+    //             }
+    //             return res.status(500).send({ error: req_err });
+    //         });
+    //       }
+    //       var log = "Employer profile completed.";
+    //       var timestamp = new Date().getTime();
+    //       var server = "Company"
+    //       Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+    //         if(err){
+    //               return res.send(500,{error:'Logging Error'});
+    //         }
+    //         return res.redirect("/employee/SignIn");
+    //       });
+    //     });
+    //   },
     
     MBRcall: function(req, res) {
     var log = "Checking for values in the JSON response from the company server";
@@ -133,7 +190,7 @@ module.exports = {
                 res.send(500, { error: "Database Error when retrieving info about employee with email " + email});
             }
             if(0 == result.length) {
-                return res.redirect("/employee/MissMatch");
+                return res.send({ invalid: 'invalid' });
             }
             else
             {
@@ -152,7 +209,8 @@ module.exports = {
                     }
                 });
                 res.locals.layout = "layouts/employee/layout.ejs";
-                return res.view('pages/employee/MortgageInfoSupply',{empID:data.empID});
+                res.view('pages/employee/MortgageInfoSupply',{empID:data.empID});
+
             }
             else{
                 var log = "Not authentic user."
@@ -163,7 +221,7 @@ module.exports = {
                         res.send(500,{error:'Database Error'});
                     }
                 });
-                return res.redirect("/employee/MissMatch");
+                return res.send({ invalid: 'invalid' });
             }
         })
     },
