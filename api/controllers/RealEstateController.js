@@ -22,13 +22,30 @@ module.exports = {
 
                 var errCode = err.code;
                 if (errCode == "E_UNIQUE") {
-                    //log the error message
+                  var log = "E_UNIQUE";
+                  var timestamp = new Date().getTime();
+                  var server = "Real Estate";
+                  Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                      if(err){
+                          return res.status(500).send({error:'Logging Error'});
+                      }
+                      return res.status(500).send({ error: req_err });
+                  });
                     res.send({ error: "MortID already exist", status: "fail" });
                 }  else {
                     res.send({ error: message, status: "fail" });
                 }
             } else {
                 //log real estate appraisal submited
+                var log = "Log real estate appraisal submited";
+                var timestamp = new Date().getTime();
+                var server = "Real Estate";
+                Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                    if(err){
+                        return res.status(500).send({error:'Logging Error'});
+                    }
+                    return res.status(500).send({ error: req_err });
+                });
                 res.send({ status: "Success" });
             }
         });
@@ -49,9 +66,27 @@ module.exports = {
         .exec(function (err,Appraisals) {
             if (err) {
                 //Log error message: failed to fetch list of appraisals
+                var log = "Log error message: failed to fetch list of appraisals";
+                var timestamp = new Date().getTime();
+                var server = "Real Estate";
+                Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                    if(err){
+                        return res.status(500).send({error:'Logging Error'});
+                    }
+                    return res.status(500).send({ error: req_err });
+                });
                 return res.send(err);
             } else {
                 //Log appraisals fetched
+                var log = "Log appraisals fetched";
+                var timestamp = new Date().getTime();
+                var server = "Real Estate";
+                Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                    if(err){
+                        return res.status(500).send({error:'Logging Error'});
+                    }
+                    return res.status(500).send({ error: req_err });
+                });
                 res.send(Appraisals);
             }
         });
@@ -71,13 +106,39 @@ module.exports = {
                 var errCode = err.code;
                 if (errCode == "E_UNIQUE") {
                     //Log error message
+                    var log = "Log error message;E_UNIQUE";
+                    var timestamp = new Date().getTime();
+                    var server = "Real Estate";
+                    Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                        if(err){
+                            return res.status(500).send({error:'Logging Error'});
+                        }
+                        return res.status(500).send({ error: req_err });
+                    });
                     res.send({ error: "Email already exist", status: "fail" });
                 }  else {
-                    //log error
+                      var log = "Failed in signing up.";
+                      var timestamp = new Date().getTime();
+                      var server = "Real Estate";
+                      Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                          if(err){
+                              return res.status(500).send({error:'Logging Error'});
+                          }
+                          return res.status(500).send({ error: req_err });
+                      });
                     res.send({ error: message, status: "fail" });
                 }
             } else {
                 //Log real estate appraiser account created
+                      var log = "Log real estate appraiser account created";
+                      var timestamp = new Date().getTime();
+                      var server = "Real Estate";
+                      Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                          if(err){
+                              return res.status(500).send({error:'Logging Error'});
+                          }
+                          return res.status(500).send({ error: req_err });
+                      });
                 res.send({ status: "Success" });
             }
         });
@@ -95,13 +156,40 @@ module.exports = {
                 } else {
                     if (!appraiser) {
                         //Log error
+                      var log = "Error in appraiserLogin";
+                      var timestamp = new Date().getTime();
+                      var server = "Real Estate";
+                      Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                          if(err){
+                              return res.status(500).send({error:'Logging Error'});
+                          }
+                          return res.status(500).send({ error: req_err });
+                      });
                         res.send({ status: "unauthentic", error: "Appraiser is not registered" })
                     } else {
                         if (password == appraiser.password) {
                             //Log user Sign In successfull
+                            var log = "Error in appraiserLogin";
+                            var timestamp = new Date().getTime();
+                            var server = "Real Estate";
+                            Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                                if(err){
+                                    return res.status(500).send({error:'Logging Error'});
+                                }
+                                return res.status(500).send({ error: req_err });
+                            });
                             res.send({ status: "authentic" })
                         } else {
                             //Log error
+                            var log = "Error in appraiserLogin";
+                            var timestamp = new Date().getTime();
+                            var server = "Real Estate";
+                            Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                                if(err){
+                                    return res.status(500).send({error:'Logging Error'});
+                                }
+                                return res.status(500).send({ error: req_err });
+                            });
                             res.send({ status: "unauthentic", error: "Email-Password combination does not exist" })
                         }
                     }
@@ -109,7 +197,7 @@ module.exports = {
             })
     },
 
-    
+
 
 };
 
