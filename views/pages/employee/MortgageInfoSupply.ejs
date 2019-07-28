@@ -33,6 +33,7 @@
             data:{'empID':empID,'mbrID':mbrID,'address':address},
             success:function(result){
               alert(result);
+              document.getElementById("btn").disabled = true;
            },
             error:function(error){
              console.log(error)
