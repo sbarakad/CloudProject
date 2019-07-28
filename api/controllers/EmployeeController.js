@@ -57,7 +57,7 @@ module.exports = {
             if(err){
                   return res.send(500,{error:'Logging Error'});
             }
-            // return res.view("pages/employee/SignIn");
+            // return res.view("pages/employee/SignIn"); 
             return res.send(200,{message:"Profile created successfully!"});
           });
         });
