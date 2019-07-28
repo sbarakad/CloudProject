@@ -18,11 +18,11 @@ module.exports = {
         var applicantName = req.param("applicantName");
 
         if(!mortId || !mlsID || !appraisalValue || !applicantName) {
-            res.send({ status: "fail", error: "Mortgage ID, or property ID MlsID, or appraisal value, or applicant name is empty." })
+            return res.send({ status: "fail", error: "Mortgage ID, or property ID MlsID, or appraisal value, or applicant name is empty." })
         }
 
         if(appraisalValue > 1000000) {
-            res.send({ status: "pending", reason: "Appraisal value is higher than 1000000." });
+            return res.send({ status: "pending", reason: "Appraisal value is higher than 1000000." });
         }  
 
         var request = require('request');
@@ -38,7 +38,7 @@ module.exports = {
                 if (error) {
                     Logger(error, "INSincController.checkInsuranceAvailability");
                 } else {
-                    res.send({ status: "declined", reason: "Appraisal value is less than 50000." });
+                    return res.send({ status: "declined", reason: "Appraisal value is less than 50000." });
                 }
             });
         }  
@@ -59,7 +59,7 @@ module.exports = {
                 if (error) {
                     Logger(error, "INSincController.checkInsuranceAvailability");
                 } else {
-                    res.send({ status: "approved", reason: "Appraisal value is higher than 50000." });
+                    return res.send({ status: "approved", reason: "Appraisal value is higher than 50000." });
                 }
             });
         }

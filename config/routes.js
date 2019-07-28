@@ -120,6 +120,11 @@ module.exports.routes = {
     locals:{layout:'layouts/employee/layout.ejs'}
   },
 
+  'Post /realEstate/deleteApplication' : {
+    controller : 'RealEstateController',
+    action : 'deleteApplication'
+  }
+
 
   /***************************************************************************
   *                                                                          *

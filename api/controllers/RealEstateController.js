@@ -25,14 +25,10 @@ module.exports = {
                   var timestamp = new Date().getTime();
                   var server = "Real Estate";
                   Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                      if(err){
-                          return res.status(500).send({error:'Logging Error'});
-                      }
-                      return res.status(500).send({ error: req_err });
                   });
-                    res.send({ error: "MortID already exist", status: "fail" });
+                    return res.send({ error: "MortID already exist", status: "fail" });
                 }  else {
-                    res.send({ error: message, status: "fail" });
+                    return res.send({ error: message, status: "fail" });
                 }
             } else {
                 //log real estate appraisal submited
@@ -40,10 +36,6 @@ module.exports = {
                 var timestamp = new Date().getTime();
                 var server = "Real Estate";
                 Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                    if(err){
-                        return res.status(500).send({error:'Logging Error'});
-                    }
-                    return res.status(500).send({ error: req_err });
                 });
                 res.send({ status: "Success" });
             }
@@ -84,7 +76,27 @@ module.exports = {
     },
 
     deleteApplication: function (req,res) {
-        
+       var MortID = req.param("MortID");
+       var timestamp = new Date().getTime();
+       var server = "Real Estate";
+       RealEstate.destroy({MortID:MortID}).meta({fetch: true}).exec(function(err,data)
+       {
+           if(err)
+           {
+                var log = "Unsuccessful in Updating Real Estate Database";
+                Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                });
+                return res.send({error:"Unsuccessful in Updating Real Estate Database",status:"fail"})
+           }
+           else
+           {
+                var log = "Successfully sent data to Insurace";
+                Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
+                });
+                return res.send({status:"Successful"});
+           }
+       })
+       
     },
 
     appraiserSignUp: function (req, res) {
