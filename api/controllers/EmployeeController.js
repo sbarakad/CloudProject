@@ -63,44 +63,18 @@ module.exports = {
         });
         
     },
-    // create: function(req, res) {
-    //     var name = req.body.name;
-    //     var email = req.body.email;
-    //     var salary = req.body.salary;
-    //     var password = req.body.password;
-    //     var tenure = req.body.tenure;
-    //     var empID = Math.floor(Math.random() * 200);
-    //     Employee.create({
-    //       empID: empID,
-    //       email: email,
-    //       fullName: name,
-    //       salary: salary,
-    //       tenure: tenure,
-    //       password:password
-    //     }).exec(function(req_err) {
-    //       if (req_err) {
-    //         var log = "Database Error";
-    //         var timestamp = new Date().getTime();
-    //         var server = "Employee"
-    //         Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-    //             if(err){
-    //                 return res.status(500).send({error:'Logging Error'});
-    //             }
-    //             return res.status(500).send({ error: req_err });
-    //         });
-    //       }
-    //       var log = "Employer profile completed.";
-    //       var timestamp = new Date().getTime();
-    //       var server = "Company"
-    //       Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-    //         if(err){
-    //               return res.send(500,{error:'Logging Error'});
-    //         }
-    //         return res.redirect("/employee/SignIn");
-    //       });
-    //     });
-    //   },
     
+    // SHOW DATABASE OF COMPANY.
+    getEmployeeDB:function(req,res){
+      Employee.find({}).exec(function(err,rec){
+
+        if(err){
+            res.send(500,{error:'Database Error'});
+        }
+       res.view('pages/employee/listCompany',{recList:rec})
+      });
+    },
+
     MBRcall: function(req, res) {
     var log = "Checking for values in the JSON response from the company server";
         var timestamp = new Date().getTime();
@@ -111,8 +85,10 @@ module.exports = {
             }
         });
     },
-    
+
     supplyMBRinfo:function(req, res) {
+        console.log(res.body);
+        console.log(req.body);
         var employeeId = req.body.empID  ;
         var address = req.body.address;
         var mbrID = req.body.mbrID;
@@ -125,7 +101,7 @@ module.exports = {
 
             if (err) {
             res.send(500, { error: "Database Error when retrieving info about employee with ID " + employeeId});
-            }
+            } 
             var endpointURL = address+"?name="+name+"&email="+email+"&id="+mbrID+"&tenure="+tenure+"&salary="+salary+"";
             var log = "MBR id = "+mbrID;
             var timestamp = new Date().getTime();
@@ -196,7 +172,8 @@ module.exports = {
             {
                 var data = result[0];
             }
-            
+
+
 
             console.log(data.password);
             if(data.password === password){

@@ -1,0 +1,52 @@
+<html>
+  <body>
+     
+    <div class="container">
+      <div class="card">
+        <div class="card-header">Appraisal Application</div>
+        <div class="card-body">
+          <form class="w-50 m-auto" action='/realEstate/reqAppraisal' id='appraisalApplication'>
+            <div class="form-group">
+              <label> MortID: </label>
+              <input type="string" id="MortID" name="MortID" class="form-control" required>
+            </div>  
+            <div class="form-group">
+              <label> MlsID: </label>
+              <input type="text" id="MlsID" name="MlsID" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label> Name: </label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+
+
+<script>
+    $("#appraisalApplication").submit(function(event){
+        event.preventDefault();
+        fetch(event.target.action, {
+            method: 'POST',
+            body: new URLSearchParams(new FormData(event.target))
+        }).then(response => response.json())
+        .then(data => {
+            if(data.status == 'fail')
+            {
+                alert(data.error);
+            }
+            else
+            {
+                alert("Your application has been submited.");
+                $('#appraisalApplication')[0].reset();
+            }
+        })
+        .catch(error => console.log('error is', error));
+    }); 
+</script>

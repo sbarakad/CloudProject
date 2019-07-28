@@ -1,0 +1,45 @@
+<h1 class="display-4">MBR table</h1>
+<br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>Name</th>
+      <th>emailID</th>
+      <th>Password</th>
+      <th>Address</th>
+      <th>Phone_Number</th>
+      <th>Salary</th>
+      <th>Tenure</th>
+      <th>Status</th>
+      <th>MortgageValue</th>
+      <th>MlsID</th>
+      <th>IsInsurable</th>
+      <th>InsuredValue</th>
+      <th>Deductable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% recList.forEach(function(record){ %>
+    <tr>
+      <td><%= record.id %></td>
+      <td><%= record.Name %></td>
+      <td><%= record.Email %></td>
+      <td><%= record.Password %></td>
+      <td><%= record.Address %></td>
+      <td><%= record.Phone_Number %></td>
+      <td><%= record.Salary %></td>
+      <td><%= record.Tenure %></td>
+      <td><%= record.Status %></td>
+      <td><%= record.MortgageValue %></td>
+      <td><%= record.MlsID %></td>
+      <td><%= record.IsInsurable %></td>
+      <td><%= record.InsuredValue %></td>
+      <td><%= record.Deductable %></td>
+
+
+
+    <% }) %>
+    </tr>
+  </tbody>
+</table>

@@ -7,7 +7,7 @@
 var Logger = require('../../assets/custom/LoggerService');
 
 module.exports = {
-    
+
     mbrAddUser: function (req, res) {
 
         Logger("call: mbrAddUser", "MbrServiceController.mbrAddUser");
@@ -23,7 +23,7 @@ module.exports = {
         var mlsID = req.param("mlsID"); // property ID
 
         MbrUser.create({
-            Name: name, 
+            Name: name,
             Email: email,
             Password: password,
             Address: address,
@@ -48,6 +48,16 @@ module.exports = {
                     res.send({ status: "Success" });
                 }
             });
+    },
+    // SHOW DATABASE OF MBR.
+    getMBRDB:function(req,res){
+      MbrUser.find({}).exec(function(err,rec){
+
+        if(err){
+            res.send(500,{error:'Database Error'});
+        }
+      res.view('pages/mbr/listMBR',{recList:rec})
+      });
     },
 
     mbrLogin: function (req, res) {
