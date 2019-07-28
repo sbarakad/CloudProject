@@ -1,0 +1,24 @@
+<html>
+    <body>
+        <table class="table table-stripped">
+            <thead>
+                <tr>
+                    <th>Mortgage ID</th>
+                    <th>Name</th>
+                    <th>Property ID</th>
+                    <th>Value</th>
+                </tr>
+            </thead>    
+            <tbody>
+                <% Appraisals.forEach(function(Appraisal){ %>
+                    <tr>
+                        <td><%= Appraisal.MortID %></td>
+                        <td><%= Appraisal.fullName %></td>
+                        <td><%= Appraisal.MlsID %></td>
+                        <td>Hello</td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </body>
+</html>

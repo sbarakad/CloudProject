@@ -3,7 +3,7 @@
         height: 100%;
     }
         #mainDiv{
-           background-image: linear-gradient(#C04848, #480048);
+           background-image: linear-gradient(#FFFFFF);
            height: 100%;
            font-family:Arial;
         }
@@ -18,10 +18,10 @@
           font-size: 18px;
         }
       </style>
-    <script type="tex/javascript">
+    <script type="text/javascript">
 
       function pwdFunction() {
-        var password = document.getElementById("pwd");
+        var password = document.getElementById("password");
         if (password.type === "password") {
           password.type = "text";
         } else {
@@ -29,9 +29,39 @@
         }
       }
 
+      function signup(){
+    var url="/employee/create";
+    var name=document.getElementById("name").value;
+    var email=document.getElementById("email").value;
+    var salary=document.getElementById("salary").value;
+    var password=document.getElementById("password").value;
+    var tenure=document.getElementById("tenure").value;
+    
+    //alert(username+""+password);
+    $.ajax({
+                  url:url,
+                  type:"POST",
+                  data:{name:name,email:email,salary:salary,password:password,tenure:tenure},
+                  success:function(result){
+                    console.log(result);
+                    if(result.invalid){
+                       alert('Employee already exists!') 
+                    }else{
+                      alert(result.message);
+                      window.location.href = "/employee/SignIn";
+                    }
+             
+                  },
+                  error:function(error){
+                    //console.log(error)
+                  }
+                });
+                
+  }
     </script>
     <div class="container-fluid" id="mainDiv">
-        <form action="/employee/create" method="POST">
+        <!-- action="/employee/create" method="POST" -->
+        <form>
           <div class="col-lg-4">
     
           </div>
@@ -42,29 +72,29 @@
           <div class="form-group">
             <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" required=true name="name" placeholder="Enter your Full Name">
+            <input type="text" class="form-control" id="name" required=true name="name" placeholder="Enter your Full Name">
           </div>
             <label for="email">Email address:</label>
-            <input type="email" class="form-control" required=true name="email" placeholder="Enter email">
+            <input type="email" class="form-control" id="email" required=true name="email" placeholder="Enter email">
           </div>
           <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" id="pwd" class="form-control" required=true name="password" placeholder="Enter Password">
+            <input type="password"  class="form-control" id="password" required=true name="password" placeholder="Enter Password">
             <input type="checkbox" onclick="pwdFunction()">Show Password
           </div>
           <div class="form-group">
             <label for="designation">Job Designation:</label>
-            <input type="text" class="form-control" required=true name="designation" placeholder="Enter your designation">
+            <input type="text" class="form-control" required=true id="designation" name="designation" placeholder="Enter your designation">
           </div>
           <div class="form-group">
             <label for="salary">Salary:</label>
-            <input type="number" class="form-control" required=true name="salary" placeholder="Enter your salary">
+            <input type="number" class="form-control" id="salary" required=true name="salary" placeholder="Enter your salary">
           </div>
           <div class="form-group">
             <label for="tenure">Work tenure:</label>
-            <input type="number" class="form-control" required=true name="tenure" placeholder="Enter your work tenure">
+            <input type="number" class="form-control" id="tenure" required=true name="tenure" placeholder="Enter your work tenure">
           </div>
-         <center><button type="submit" class="btn btn-primary" id="btn">Sign Up</button></center>
+         <center><button type="button" class="btn btn-primary" id="btn" onclick="signup()">Sign Up</button></center>
         </form>
         </div>
         <div class="col-lg-4">

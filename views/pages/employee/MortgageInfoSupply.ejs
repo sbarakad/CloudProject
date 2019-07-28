@@ -1,25 +1,61 @@
 <script type="text/javascript">
+
+    var checked=false;
     $(document).ready(function(){
-      $("form").submit(function() {
-      $("#agree").change(function() {
-        if(this.checked) {
-            alert("User agreed");
+        $('input[type="checkbox"]').click(function(){
+            if($(this).prop("checked") == true){
+                checked=true;
+            }
+            else if($(this).prop("checked") == false){
+                checked=false;
+            }
+        });
+        var PageURL = window.location.search.substring(1);
+        var URLVariables = PageURL.split('=');
+        //alert(URLVariables[1]);
+        var empID=URLVariables[1];
+        document.getElementById('empID').value = empID;
+      });
+   
+      $(document).ready(function(){
+        $('.supply').click(function(){
+        if(checked){
+        var empID=document.getElementById("empID").value;
+        var mbrID=document.getElementById("appNumber").value;
+        var address=document.getElementById("address").value;
+        if(!mbrID || !address){
+          alert("Please enter mbrID and address. These are required fields..!!!");
         }
-        else if(!this.checked){
-          alert("Please agree by checking the checkbox");
-          return false;
+        else{
+          $.ajax({
+            url:"/employee/sendInfo",
+            type:"GET",
+            data:{'empID':empID,'mbrID':mbrID,'address':address},
+            success:function(result){
+              alert(result);
+              document.getElementById("btn").disabled = true;
+           },
+            error:function(error){
+             console.log(error)
+             }
+            });
         }
-    });
+       
+        }
+        else{
+          alert("Please agree the checkbox to supply information..!!!");
+        }
+      });
+      });
      
-    });
-    });
+
     </script>
     <style type="text/css">
         body,html{
           height: 100%;
         }
           #mainDiv{
-             background-image: linear-gradient(#C04848, #480048);
+             background-image: linear-gradient(#FFFFFF);
              height: 100%;
              font-family:Arial;
           }
@@ -39,26 +75,27 @@
          <div class="col-lg-4">
     
         </div>
-        <form action="/employee/sendInfo" method="Get">
+        <!-- action="/employee/sendInfo" method="Get" -->
+        <form>
           <div class="col-lg-4" id="subDiv">
            <div> 
              <center><h1>Information Supply Form</h1></center>
            </div>
            <div class="form-group">
-              <label for="empID">Employee ID:</label>
-              <input type="text" class="form-control" id="empID" required=true value="<%=empID%>"
+              <label for="empID">Employee ID:</label> 
+              <input type="text" class="form-control" id="empID" required=true 
                name="empID" readonly>
-    
+       
             </div>
           <div class="form-group">
             <label for="appNumber">Mortgage Application Number:</label>
             <input type="number" class="form-control" required=true id="appNumber" name="mbrID"
-             placeholder="Enter your Mortgage Application Number">
+             placeholder="Enter your Mortgage Application Number" required>
           </div>
           <div class="form-group">
             <label for="address">Broker Web-service Address:</label>
             <input type="text" class="form-control" id="address" name="address"
-             required=true placeholder="Enter Broker's web-service address">
+             required=true placeholder="Enter Broker's web-service address" required>
           </div>
           <div class="form-group">
     
@@ -66,7 +103,7 @@
     
           </div>
     
-         <center><button type="submit" class="btn btn-primary" id="btn">Submit</button></center>
+         <center><button type="button" class="btn btn-primary supply" id="btn">Submit</button></center>
         </div>
         </form>
         <div class="col-lg-4">
