@@ -43,7 +43,7 @@ module.exports.routes = {
 
 
   // INSinc Service routes:
-  '/insinc/check-insurance-availability' : {controller: 'INSincController', action: 'checkInsuranceAvailability'},
+  'Post /insinc/check-insurance-availability/1' : {controller: 'INSincController', action: 'checkInsuranceAvailability'},
 
   //Employee Application Route
   '/employee' : { view: 'pages/employee/Portal', locals: {layout: 'layouts/employee/layout.ejs'}},

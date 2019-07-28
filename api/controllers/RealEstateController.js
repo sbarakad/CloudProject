@@ -83,6 +83,9 @@ module.exports = {
         });
     },
 
+    deleteApplication: function (req,res) {
+        
+    },
 
     appraiserSignUp: function (req, res) {
         var email = req.param("email");

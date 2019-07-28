@@ -1,4 +1,11 @@
 <html>
+    <style>
+        input[readonly]{
+            background-color:transparent;
+            border: 0;
+            font-size: 1em;
+        }
+    </style>
     <body>
         <table class="table table-stripped">
             <thead>
@@ -12,12 +19,12 @@
             <tbody>
                 <% Appraisals.forEach(function(Appraisal){ %>
                     <tr>
-                        <form id=<%= Appraisal.MortID %>>
-                            <td><input type="text" value=<%= Appraisal.MortID %> readonly></td>
-                            <td><input type="text" value=<%= Appraisal.fullName %> readonly></td>
-                            <td><input type="text" value=<%= Appraisal.MlsID %> readonly></td>
-                            <td><input type="number"></td>
-                            <td><input type="submit" value="Submit"></td>
+                        <form id=<%= Appraisal.MortID %> name=<%= Appraisal.MortID %>>
+                            <td><input type="text" id="MortId" name="MortId" value=<%= Appraisal.MortID %> readonly></td>
+                            <td><input type="text" id="applicantName" name="applicantName" value=<%= Appraisal.fullName %> readonly></td>
+                            <td><input type="text" id="MlsID" name="MlsID" value=<%= Appraisal.MlsID %> readonly></td>
+                            <td><input type="number" id="appraisalValue" name="appraisalValue" required></td>
+                            <td><input type="button" onclick=callInsurance(this.form) value="Submit"></td>
                         </form>
                     </tr>
                 <% }) %>
@@ -28,5 +35,31 @@
 
 
 <script>
+
+    function callInsurance(form)
+    {
+        var id = form.id;
+        var MortID = document.getElementById(id).elements[0].value;
+        var Name = document.getElementById(id).elements[1].value;
+        var MlsID = document.getElementById(id).elements[2].value;
+        var value = document.getElementById(id).elements[3].value;
+        data = {MortId:MortID,MlsID:MlsID,appraisalValue:value,applicantName:Name};
+        fetch("/insinc/check-insurance-availability/1", {
+            method: 'POST',
+            body: JSON.stringify(data)
+        }).then(response => response.json())
+        .then(data => {
+           if(data.status!="approved")
+           {
+               alert(data.reason);
+           }
+           else
+           {
+                
+           }
+        })
+        .catch(error => console.log('error is', error));
+
+    }
 
 </script>
