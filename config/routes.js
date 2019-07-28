@@ -77,9 +77,10 @@ module.exports.routes = {
   },
 
   //Real Estate frontend
+  '/realEstate' : { view: 'pages/realEstate/dashboard', locals: {layout: 'layouts/realEstate/layout.ejs'}},
   '/realEstate/SignUp' : {
     view: 'pages/realEstate/SignUp',
-    locals:{layout:'layouts/employee/layout.ejs'}
+    locals:{layout:'layouts/realEstate/layout.ejs'}
   },
 
   '/realEstate/SignIn' : {

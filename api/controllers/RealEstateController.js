@@ -25,10 +25,10 @@ module.exports = {
                   var timestamp = new Date().getTime();
                   var server = "Real Estate";
                   Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                      if(err){
-                          return res.status(500).send({error:'Logging Error'});
-                      }
-                      return res.status(500).send({ error: req_err });
+                    //   if(err){
+                    //       return res.status(500).send({error:'Logging Error'});
+                    //   }
+                    //   return res.status(500).send({ error: req_err });
                   });
                     res.send({ error: "MortID already exist", status: "fail" });
                 }  else {
@@ -40,10 +40,10 @@ module.exports = {
                 var timestamp = new Date().getTime();
                 var server = "Real Estate";
                 Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                    if(err){
-                        return res.status(500).send({error:'Logging Error'});
-                    }
-                    return res.status(500).send({ error: req_err });
+                    // if(err){
+                    //     return res.status(500).send({error:'Logging Error'});
+                    // }
+                    // return res.status(500).send({ error: req_err });
                 });
                 res.send({ status: "Success" });
             }
@@ -69,10 +69,10 @@ module.exports = {
                 var timestamp = new Date().getTime();
                 var server = "Real Estate";
                 Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                    if(err){
-                        return res.status(500).send({error:'Logging Error'});
-                    }
-                    return res.status(500).send({ error: req_err });
+                    // if(err){
+                    //     return res.status(500).send({error:'Logging Error'});
+                    // }
+                    // return res.status(500).send({ error: req_err });
                 });
                 return res.send(err);
             } else {
@@ -81,10 +81,10 @@ module.exports = {
                 var timestamp = new Date().getTime();
                 var server = "Real Estate";
                 Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                    if(err){
-                        return res.status(500).send({error:'Logging Error'});
-                    }
-                    return res.status(500).send({ error: req_err });
+                    // if(err){
+                    //     return res.status(500).send({error:'Logging Error'});
+                    // }
+                    // return res.status(500).send({ error: req_err });
                 });
                 res.locals.layout = "layouts/realEstate/layout.ejs";
                 res.view('pages/realEstate/AppraisalList',{Appraisals:Appraisals});
@@ -110,10 +110,10 @@ module.exports = {
                     var timestamp = new Date().getTime();
                     var server = "Real Estate";
                     Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                        if(err){
-                            return res.status(500).send({error:'Logging Error'});
-                        }
-                        return res.status(500).send({ error: req_err });
+                        // if(err){
+                        //     return res.status(500).send({error:'Logging Error'});
+                        // }
+                        // return res.status(500).send({ error: req_err });
                     });
                     res.send({ error: "Email already exist", status: "fail" });
                 }  else {
@@ -121,10 +121,10 @@ module.exports = {
                       var timestamp = new Date().getTime();
                       var server = "Real Estate";
                       Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                          if(err){
-                              return res.status(500).send({error:'Logging Error'});
-                          }
-                          return res.status(500).send({ error: req_err });
+                        //   if(err){
+                        //       return res.status(500).send({error:'Logging Error'});
+                        //   }
+                        //   return res.status(500).send({ error: req_err });
                       });
                     res.send({ error: message, status: "fail" });
                 }
@@ -134,10 +134,10 @@ module.exports = {
                       var timestamp = new Date().getTime();
                       var server = "Real Estate";
                       Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
-                          if(err){
-                              return res.status(500).send({error:'Logging Error'});
-                          }
-                          return res.status(500).send({ error: req_err });
+                    //       if(err){
+                    //           return res.status(500).send({error:'Logging Error'});
+                    //       }
+                    //       return res.status(500).send({ error: req_err });
                       });
                 res.send({ status: "Success" });
             }

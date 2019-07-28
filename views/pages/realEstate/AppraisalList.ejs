@@ -1,5 +1,13 @@
 <html>
     <body>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var token=localStorage.getItem("realEstate");
+                if(!token){
+                    window.location.replace("/realEstate");
+                }
+            });
+        </script>
         <table class="table table-stripped">
             <thead>
                 <tr>

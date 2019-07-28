@@ -20,6 +20,10 @@ $(document).ready(function () {
         $('.navbar-nav').html("");
         $('.navbar-nav').append("<li class=\"nav-item logout-emp\"><span class=\"nav-link\">Logout</span></li> <li class=\"nav-item dashboard\"><span class=\"nav-link\">Dashboard</span></li>");
     }
+    if (localStorage.getItem("realEstate")) {
+        $('.navbar-nav').html("");
+        $('.navbar-nav').append("<li class=\"nav-item logout-re\"><span class=\"nav-link\">Logout</span></li> <li class=\"nav-item dashboard\"><span class=\"nav-link\">Dashboard</span></li>");
+    }
 
     if ($('.identify-page').val() == "dashboard") {
         var emailID = localStorage.getItem("email");
@@ -71,6 +75,12 @@ $(document).on("click", "li.logout-emp", function () {
     localStorage.clear();
     window.location.replace("/employee");
 })
+
+$(document).on("click", "li.logout-re", function () {
+    localStorage.clear();
+    window.location.replace("/realEstate");
+})
+
 
 $(document).on("click", "li.dashboard", function () {
     window.location.replace("/mbr/dashboard");
