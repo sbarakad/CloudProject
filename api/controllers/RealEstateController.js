@@ -1,4 +1,4 @@
-/**
+ /**
  * RealEstateController
  *
  * @description :: Server-side actions for handling incoming requests.
@@ -19,7 +19,6 @@ module.exports = {
         })
         .exec(function (err) {
             if (err) {
-
                 var errCode = err.code;
                 if (errCode == "E_UNIQUE") {
                     //log the error message
@@ -45,14 +44,15 @@ module.exports = {
 
     fetchAppraisals: function (req, res) {
 
-        RealEstate.find({})
+        RealEstate.find()
         .exec(function (err,Appraisals) {
             if (err) {
                 //Log error message: failed to fetch list of appraisals
                 return res.send(err);
             } else {
                 //Log appraisals fetched
-                res.send(Appraisals);
+                res.locals.layout = "layouts/realEstate/layout.ejs";
+                res.view('pages/realEstate/AppraisalList',{Appraisals:Appraisals});
             }
         });
     },
@@ -99,7 +99,7 @@ module.exports = {
                     } else {
                         if (password == appraiser.password) {
                             //Log user Sign In successfull
-                            res.send({ status: "authentic" })
+                            res.send({status:"authentic"})
                         } else {
                             //Log error
                             res.send({ status: "unauthentic", error: "Email-Password combination does not exist" })
