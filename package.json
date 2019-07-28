@@ -8,13 +8,9 @@
     "@sailshq/connect-redis": "^3.2.1",
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^5.2.0",
-<<<<<<< HEAD
     "crypto-js": "^3.1.9-1",
     "grunt": "1.0.1",
-=======
-    "grunt": "1.0.1",
     "request": "^2.88.0",
->>>>>>> 1b39ac466c49cde353d4423313e75f2a49a937c1
     "sails": "^1.2.1",
     "sails-hook-grunt": "^3.1.0",
     "sails-hook-orm": "^2.1.1",
