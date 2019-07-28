@@ -12,11 +12,12 @@
             <tbody>
                 <% Appraisals.forEach(function(Appraisal){ %>
                     <tr>
-                        <form>
-                            <td><%= Appraisal.MortID %></td>
-                            <td><%= Appraisal.fullName %></td>
-                            <td><%= Appraisal.MlsID %></td>
-                            <td></td>
+                        <form id=<%= Appraisal.MortID %>>
+                            <td><input type="text" value=<%= Appraisal.MortID %> readonly></td>
+                            <td><input type="text" value=<%= Appraisal.fullName %> readonly></td>
+                            <td><input type="text" value=<%= Appraisal.MlsID %> readonly></td>
+                            <td><input type="number"></td>
+                            <td><input type="submit" value="Submit"></td>
                         </form>
                     </tr>
                 <% }) %>
@@ -24,3 +25,8 @@
         </table>
     </body>
 </html>
+
+
+<script>
+
+</script>

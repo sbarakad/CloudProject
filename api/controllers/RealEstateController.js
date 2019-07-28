@@ -77,7 +77,7 @@ module.exports = {
                 var server = "Real Estate";
                 Logger.create({time:timestamp,log:log,server:server}).exec(function(err){
                 });
-                res.locals.layout = "layouts/realEstate/layout.ejs";
+                res.locals.layout = "layouts/realEstate/layout2.ejs";
                 return res.view('pages/realEstate/AppraisalList',{Appraisals:Appraisals});
             }
         });
