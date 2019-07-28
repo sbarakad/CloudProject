@@ -50,6 +50,7 @@ module.exports.routes = {
   '/employee/SignIn' : {view:'pages/employee/SignIn', locals: {layout: 'layouts/employee/layout.ejs'}},
   '/employee/SignUp' : {view:'pages/employee/SignUp', locals: {layout: 'layouts/employee/layout.ejs'}},
   '/employee/MissMatch' : {view:'pages/employee/mismatch', locals: {layout: 'layouts/employee/layout.ejs'}},
+  '/employee/MortgageInfoSupply':{view:'pages/employee/MortgageInfoSupply', locals: {layout: 'layouts/employee/layout.ejs'}},
   // '/employee/getEmployeeDB' : {view:'pages/employee/listCompany',locals: {layout: 'pages/employee/listCompany.ejs'}},
 
   //Employee web service Route

@@ -320,7 +320,7 @@ $('.signup-button').click(function () {
                 $('.signup-button').text("Loading...");
             }
         })
-            .done(function (data) {
+            .done(function (data) { 
                 var jsonResponse = JSON.stringify(data);
                 var response = JSON.parse(jsonResponse);
                 if (response.status == "Success") {
