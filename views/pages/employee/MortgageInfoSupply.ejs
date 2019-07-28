@@ -17,27 +17,37 @@
         document.getElementById('empID').value = empID;
       });
    
-      $('.supply').click(function(){
+      $(document).ready(function(){
+        $('.supply').click(function(){
         if(checked){
         var empID=document.getElementById("empID").value;
         var mbrID=document.getElementById("appNumber").value;
         var address=document.getElementById("address").value;
-        $.ajax({
+        if(!mbrID || !address){
+          alert("Please enter mbrID and address. These are required fields..!!!");
+        }
+        else{
+          $.ajax({
             url:"/employee/sendInfo",
             type:"GET",
             data:{'empID':empID,'mbrID':mbrID,'address':address},
             success:function(result){
               alert(result);
+              document.getElementById("btn").disabled = true;
            },
             error:function(error){
              console.log(error)
              }
             });
         }
+       
+        }
         else{
           alert("Please agree the checkbox to supply information..!!!");
         }
       });
+      });
+     
 
     </script>
     <style type="text/css">
@@ -45,7 +55,7 @@
           height: 100%;
         }
           #mainDiv{
-             background-image: linear-gradient(#C04848, #480048);
+             background-image: linear-gradient(#FFFFFF);
              height: 100%;
              font-family:Arial;
           }
@@ -80,12 +90,12 @@
           <div class="form-group">
             <label for="appNumber">Mortgage Application Number:</label>
             <input type="number" class="form-control" required=true id="appNumber" name="mbrID"
-             placeholder="Enter your Mortgage Application Number">
+             placeholder="Enter your Mortgage Application Number" required>
           </div>
           <div class="form-group">
             <label for="address">Broker Web-service Address:</label>
             <input type="text" class="form-control" id="address" name="address"
-             required=true placeholder="Enter Broker's web-service address">
+             required=true placeholder="Enter Broker's web-service address" required>
           </div>
           <div class="form-group">
     
