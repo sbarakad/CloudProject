@@ -22,8 +22,6 @@ module.exports = {
 
         var cipher = crypto.createCipher(algorithm, key);  
         var password = cipher.update(password, 'utf8', 'hex') + cipher.final('hex');
-        console.log("-----------------------------");
-        console.log(password);
         var address = req.param("address");
         var phoneNumber = req.param("phoneNumber");
         var tenure = req.param("tenure");
@@ -109,7 +107,7 @@ module.exports = {
                         console.log(user.Password);
                         var decipher = crypto.createDecipher(algorithm, key);
                         var decrypted = decipher.update(user.Password, 'hex', 'utf8') + decipher.final('utf8');
-                        console.log(decrypted)
+                        // console.log(decrypted)
 
                         if (password == decrypted) {
                             res.send({ status: "authentic" })

@@ -38,7 +38,7 @@ module.exports.routes = {
     controller : 'MbrServiceController',
     action : 'getMBRDB',
     view:'pages/mbr/listMBR',
-    locals:{layout:'layouts/employee/layout.ejs'}
+    locals:{layout:'layouts/layout.ejs'}
   },
 
 
@@ -73,7 +73,7 @@ module.exports.routes = {
     controller : 'EmployeeController',
     action : 'getEmployeeDB',
     view:'pages/employee/listCompany',
-    locals:{layout:'layouts/employee/layout.ejs'}
+    locals:{layout:'layouts/layout.ejs'}
   },
 
   //Real Estate frontend
@@ -117,7 +117,7 @@ module.exports.routes = {
     controller : 'RealEstateController',
     action: 'getREDB',
     view:'pages/realEstate/listRE',
-    locals:{layout:'layouts/employee/layout.ejs'}
+    locals:{layout:'layouts/layout.ejs'}
   },
 
 
