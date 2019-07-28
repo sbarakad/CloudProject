@@ -5,6 +5,10 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 var Logger = require('../../assets/custom/LoggerService');
+var crypto = require('crypto');
+var assert = require('assert');
+var algorithm = 'aes256'; // or any other algorithm supported by OpenSSL
+var key = 'cloudComputing';
 
 module.exports = {
 
@@ -15,6 +19,9 @@ module.exports = {
         var name = req.param("name");
         var email = req.param("email");
         var password = req.param("password");
+
+        var cipher = crypto.createCipher(algorithm, key);  
+        var password = cipher.update(password, 'utf8', 'hex') + cipher.final('hex');
         var address = req.param("address");
         var phoneNumber = req.param("phoneNumber");
         var tenure = req.param("tenure");
@@ -49,6 +56,8 @@ module.exports = {
                         });
                         res.send({ error: "User already exist", status: "fail" });
                     }  else {
+                        // Logger(message, "MbrServiceController.mbrAddUser");
+                        res.send({ error: err, status: "fail" });
                         var log = "Error in Creating user in else case";
                         var timestamp = new Date().getTime();
                         var server = "MBR";
@@ -83,6 +92,8 @@ module.exports = {
         var email = req.param("email");
         var password = req.param("password");
 
+
+
         MbrUser.findOne({ Email: email })
             .exec(function (err, user) {
                 if (err) {
@@ -93,7 +104,12 @@ module.exports = {
                         Logger("Email is not registered", "MbrServiceController.mbrLogin");
                         res.send({ status: "unauthentic", error: "Email is not registered" })
                     } else {
-                        if (password == user.Password) {
+                        console.log(user.Password);
+                        var decipher = crypto.createDecipher(algorithm, key);
+                        var decrypted = decipher.update(user.Password, 'hex', 'utf8') + decipher.final('utf8');
+                        // console.log(decrypted)
+
+                        if (password == decrypted) {
                             res.send({ status: "authentic" })
                         } else {
                             Logger("Email-Password combination does not exist", "MbrServiceController.mbrLogin");

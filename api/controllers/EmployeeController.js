@@ -5,6 +5,11 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+var crypto = require('crypto');
+var assert = require('assert');
+var algorithm = 'aes256'; // or any other algorithm supported by OpenSSL
+var key = 'cloudComputing';
+
 module.exports = {
     
     create:function(req, res, next){
@@ -28,6 +33,8 @@ module.exports = {
                 var email = req.body.email;
                 var salary = req.body.salary;
                 var password = req.body.password;
+                var cipher = crypto.createCipher(algorithm, key);  
+                password = cipher.update(password, 'utf8', 'hex') + cipher.final('hex');
                 var tenure = req.body.tenure;
                 var empID = Math.floor(Math.random() * 200);
                  Employee.create({
@@ -181,7 +188,9 @@ module.exports = {
 
 
             console.log(data.password);
-            if(data.password === password){
+            var decipher = crypto.createDecipher(algorithm, key);
+            var decrypted = decipher.update(data.password, 'hex', 'utf8') + decipher.final('utf8');
+            if(password === decrypted){
                 var log = "Authentic user."
                 var timestamp = new Date().getTime();
                 var server = "Company"

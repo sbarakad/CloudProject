@@ -38,7 +38,7 @@ module.exports.routes = {
     controller : 'MbrServiceController',
     action : 'getMBRDB',
     view:'pages/mbr/listMBR',
-    locals:{layout:'layouts/employee/layout.ejs'}
+    locals:{layout:'layouts/layout.ejs'}
   },
 
 
@@ -73,13 +73,14 @@ module.exports.routes = {
     controller : 'EmployeeController',
     action : 'getEmployeeDB',
     view:'pages/employee/listCompany',
-    locals:{layout:'layouts/employee/layout.ejs'}
+    locals:{layout:'layouts/layout.ejs'}
   },
 
   //Real Estate frontend
+  '/realEstate' : { view: 'pages/realEstate/dashboard', locals: {layout: 'layouts/realEstate/layout.ejs'}},
   '/realEstate/SignUp' : {
     view: 'pages/realEstate/SignUp',
-    locals:{layout:'layouts/employee/layout.ejs'}
+    locals:{layout:'layouts/realEstate/layout.ejs'}
   },
 
   '/realEstate/SignIn' : {
@@ -117,7 +118,7 @@ module.exports.routes = {
     controller : 'RealEstateController',
     action: 'getREDB',
     view:'pages/realEstate/listRE',
-    locals:{layout:'layouts/employee/layout.ejs'}
+    locals:{layout:'layouts/layout.ejs'}
   },
 
   'Post /realEstate/deleteApplication' : {

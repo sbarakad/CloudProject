@@ -16,6 +16,15 @@ $(document).ready(function () {
         $('.navbar-nav').append("<li class=\"nav-item logout\"><span class=\"nav-link\">Logout</span></li> <li class=\"nav-item dashboard\"><span class=\"nav-link\">Dashboard</span></li>");
     }
 
+    if (localStorage.getItem("employee")) {
+        $('.navbar-nav').html("");
+        $('.navbar-nav').append("<li class=\"nav-item logout-emp\"><span class=\"nav-link\">Logout</span></li> <li class=\"nav-item dashboard\"><span class=\"nav-link\">Dashboard</span></li>");
+    }
+    if (localStorage.getItem("realEstate")) {
+        $('.navbar-nav').html("");
+        $('.navbar-nav').append("<li class=\"nav-item logout-re\"><span class=\"nav-link\">Logout</span></li> <li class=\"nav-item dashboard\"><span class=\"nav-link\">Dashboard</span></li>");
+    }
+
     if ($('.identify-page').val() == "dashboard") {
         var emailID = localStorage.getItem("email");
         if (emailID) {
@@ -61,6 +70,17 @@ $(document).on("click", "li.logout", function () {
     localStorage.clear();
     window.location.replace("/mbr");
 })
+
+$(document).on("click", "li.logout-emp", function () {
+    localStorage.clear();
+    window.location.replace("/employee");
+})
+
+$(document).on("click", "li.logout-re", function () {
+    localStorage.clear();
+    window.location.replace("/realEstate");
+})
+
 
 $(document).on("click", "li.dashboard", function () {
     window.location.replace("/mbr/dashboard");
@@ -320,7 +340,7 @@ $('.signup-button').click(function () {
                 $('.signup-button').text("Loading...");
             }
         })
-            .done(function (data) { 
+            .done(function (data) {
                 var jsonResponse = JSON.stringify(data);
                 var response = JSON.parse(jsonResponse);
                 if (response.status == "Success") {
